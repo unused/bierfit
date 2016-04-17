@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :consume_events
-  resources :users
+  resources :consume_events, only: ['index', 'create']
+  root 'consume_events#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
