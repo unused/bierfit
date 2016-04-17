@@ -21,8 +21,7 @@ import logging
 # could be ACM1 as well, depends on which usb slot used...
 DEFAULT_PORT      = '/dev/ttyACM0'
 DEFAULT_BAUD      = 9600
-# DEFAULT_URL = 'http://192.168.0.14:3000/consume_events.json'
-DEFAULT_URL       = 'http://localhost:4567/'
+DEFAULT_URL       = 'http://localhost:3000/consume_events.json'
 DEFAULT_LOGFILE   = 'bierfit.log'
 DEFAULT_LOG_LEVEL = logging.INFO
 

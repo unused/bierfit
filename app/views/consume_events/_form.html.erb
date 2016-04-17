@@ -1,0 +1,41 @@
+<%= form_for(@consume_event) do |f| %>
+  <% if @consume_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@consume_event.errors.count, "error") %> prohibited this consume_event from being saved:</h2>
+
+      <ul>
+      <% @consume_event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :analog_reading %><br>
+    <%= f.number_field :analog_reading %>
+  </div>
+  <div class="field">
+    <%= f.label :voltage_reading_in_mv %><br>
+    <%= f.number_field :voltage_reading_in_mv %>
+  </div>
+  <div class="field">
+    <%= f.label :fsr_resistance_in_ohms %><br>
+    <%= f.number_field :fsr_resistance_in_ohms %>
+  </div>
+  <div class="field">
+    <%= f.label :conductance_in_micromhos %><br>
+    <%= f.number_field :conductance_in_micromhos %>
+  </div>
+  <div class="field">
+    <%= f.label :force_in_newtons %><br>
+    <%= f.number_field :force_in_newtons %>
+  </div>
+  <div class="field">
+    <%= f.label :consumed_at %><br>
+    <%= f.datetime_select :consumed_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

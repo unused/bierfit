@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Analog reading:</strong>
+  <%= @consume_event.analog_reading %>
+</p>
+
+<p>
+  <strong>Voltage reading in mv:</strong>
+  <%= @consume_event.voltage_reading_in_mv %>
+</p>
+
+<p>
+  <strong>Fsr resistance in ohms:</strong>
+  <%= @consume_event.fsr_resistance_in_ohms %>
+</p>
+
+<p>
+  <strong>Conductance in micromhos:</strong>
+  <%= @consume_event.conductance_in_micromhos %>
+</p>
+
+<p>
+  <strong>Force in newtons:</strong>
+  <%= @consume_event.force_in_newtons %>
+</p>
+
+<p>
+  <strong>Consumed at:</strong>
+  <%= @consume_event.consumed_at %>
+</p>
+
+<%= link_to 'Edit', edit_consume_event_path(@consume_event) %> |
+<%= link_to 'Back', consume_events_path %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Consume Events</h1>
+
+<hr>
+
+<table>
+  <thead>
+    <tr>
+      <th>Analog reading</th>
+      <th>Voltage reading in mv</th>
+      <th>Fsr resistance in ohms</th>
+      <th>Conductance in micromhos</th>
+      <th>Force in newtons</th>
+      <th>Consumed at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @consume_events.each do |consume_event| %>
+      <tr>
+        <td><%= consume_event.analog_reading %></td>
+        <td><%= consume_event.voltage_reading_in_mv %></td>
+        <td><%= consume_event.fsr_resistance_in_ohms %></td>
+        <td><%= consume_event.conductance_in_micromhos %></td>
+        <td><%= consume_event.force_in_newtons %></td>
+        <td><%= consume_event.consumed_at %></td>
+        <td><%= link_to 'Show', consume_event %></td>
+        <td><%= link_to 'Edit', edit_consume_event_path(consume_event) %></td>
+        <td><%= link_to 'Destroy', consume_event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Consume event', new_consume_event_path %>
