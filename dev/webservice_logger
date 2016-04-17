@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'sinatra'
+require 'pp'
+
+set :bind, '0.0.0.0'
+
+post '/' do
+  puts "*** post received..."
+  pp params
+  #pp request
+  puts '***'
+end
