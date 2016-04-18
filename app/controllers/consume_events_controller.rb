@@ -4,7 +4,7 @@ class ConsumeEventsController < ApplicationController
   # GET /consume_events
   # GET /consume_events.json
   def index
-    @consume_events = ConsumeEvent.all
+    @consume_events = ConsumeEvent.consumed_on(Date.today - 1.day)
   end
 
   # POST /consume_events.json
