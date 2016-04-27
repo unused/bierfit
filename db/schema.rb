@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160416164211) do
+ActiveRecord::Schema.define(version: 20160427183025) do
 
   create_table "consume_events", force: :cascade do |t|
     t.integer  "analog_reading"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160416164211) do
     t.datetime "consumed_at"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "user"
   end
 
 end
