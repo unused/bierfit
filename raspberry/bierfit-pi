@@ -19,9 +19,9 @@ import getopt
 import logging
 
 # could be ACM1 as well, depends on which usb slot used...
-DEFAULT_PORT      = '/dev/ttyACM0'
+DEFAULT_PORT      = 'COM3'
 DEFAULT_BAUD      = 9600
-DEFAULT_URL       = 'http://localhost:3000/consume_events.json'
+DEFAULT_URL       = 'http://bierfit.herokuapp.com/consume_events.json'
 DEFAULT_LOGFILE   = 'bierfit.log'
 DEFAULT_LOG_LEVEL = logging.INFO
 
@@ -35,12 +35,13 @@ class ConsumeEvent:
     self.consume_data = re.findall(r'\d+', self.readline)
 
   def valid(self):
+    print(len(self.consume_data))
     return len(self.consume_data) == 6
 
   def push(self, url=DEFAULT_URL):
     try:
       params  = {
-        'consume_event[user]':                     self.consume_data[0]
+        'consume_event[user]':                     self.consume_data[0],
         'consume_event[analog_reading]':           self.consume_data[1],
         'consume_event[voltage_reading_in_mv]':    self.consume_data[2],
         'consume_event[fsr_resistance_in_ohms]':   self.consume_data[3],
@@ -73,6 +74,7 @@ def main():
   # TODO: ... allow some options...
   # logging.basicConfig(filename=DEFAULT_LOGFILE, level=DEFAULT_LOG_LEVEL)
   logging.basicConfig(filename=DEFAULT_LOGFILE, level=logging.DEBUG)
+  print("fu")
   prost()
 
 if __name__ == "__main__":
