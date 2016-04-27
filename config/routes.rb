@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :consume_events, only: ['index', 'create']
   root 'consume_events#index'
 
