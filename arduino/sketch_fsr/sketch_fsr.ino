@@ -21,7 +21,7 @@ const byte columns=4;            //number of columnss of keypad
 const byte Output[rows]={2,3,4,5}; //array of pins used as output for rows of keypad
 const byte Input[columns]={6,7,8,9}; //array of pins used as input for columnss of keypad
 
-String actUserId = "BierUser";
+String actUserId = "0";
 String newUserId = "";
 
 byte keypad() // function used to detect which button is used 
