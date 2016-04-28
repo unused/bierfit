@@ -11,7 +11,7 @@
       width  = $("#graph_<%= @graph %>").width(),
       height = $("#graph_<%= @graph %>").height();
 
-console.debug(width, height);
+  // console.debug(width, height);
 
   // Time Parsing Format
   var parseTime = d3.time.format("%Y-%m-%dT%H:%M:%S.%LZ").parse;
@@ -40,7 +40,7 @@ console.debug(width, height);
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  d3.json("consume_events.json", function(error, data) {
+  d3.json("consume_events.json?date=<%= @date %>", function(error, data) {
     data.forEach(function(d) {
         d.consumed_at      = parseTime(d.consumed_at);
         d.<%= value %> = +d.<%= value %>;
@@ -68,7 +68,7 @@ console.debug(width, height);
   });
 
   var updateBeerData = function() {
-    d3.json("consume_events.json", function(error, data) {
+    d3.json("consume_events.json?date=<%= @date %>", function(error, data) {
       data.forEach(function(d) {
         d.consumed_at      = parseTime(d.consumed_at);
         d.<%= value %> = +d.<%= value %>;

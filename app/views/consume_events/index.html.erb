@@ -1,8 +1,14 @@
 
-<h1>Listing all Consume Events</h1>
+<h1>Consume Events from <%=l @date, format: :short %></h1>
+
+<p>Entries on this day: <%= @consume_events.count %></p>
+
+<p>Switch to <%= link_to 'previous day', consume_events_path(date: @date - 1.day) %>  or <%= link_to 'next day', consume_events_path(date: @date + 1.day) %>...</p>
+
+<p><%= link_to 'delete all', nuke_path, data: { confirm: 'are you surely?'}  %>
 
 <style>
-  .graph { width: 1500px; height: 400px; }
+  .graph { width: 1000px; height: 400px; }
 
   .axis { font: 10px sans-serif; }
   .axis path, .axis line { fill: none; stroke: #000; shape-rendering: crispEdges; }
