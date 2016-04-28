@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :consume_events, only: ['index', 'create']
+  get 'nuke', to: 'consume_events#nuke'
   root 'consume_events#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
