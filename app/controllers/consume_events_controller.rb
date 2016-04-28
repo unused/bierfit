@@ -4,7 +4,9 @@ class ConsumeEventsController < ApplicationController
   # GET /consume_events
   # GET /consume_events.json
   def index
-    @consume_events = ConsumeEvent.consumed_on(Date.today)
+    @date = Date.today
+    @date = Date.parse(params[:date]) if params[:date]
+    @consume_events = ConsumeEvent.consumed_on @date
   end
 
   # POST /consume_events.json
@@ -21,6 +23,11 @@ class ConsumeEventsController < ApplicationController
         format.json { render json: @consume_event.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def nuke
+    ConsumeEvent.delete_all
+    redirect_to consume_events_path, notice: "foo... all gone..."
   end
 
   private
