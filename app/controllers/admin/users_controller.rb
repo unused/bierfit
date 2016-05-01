@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_admin_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -39,11 +39,11 @@ class Admin::UsersController < ApplicationController
   end
 
   private
-    def set_admin_user
+    def set_user
       @user = User.find(params[:id])
     end
 
-    def admin_user_params
+    def user_params
       params.fetch(:user, {})
     end
 end

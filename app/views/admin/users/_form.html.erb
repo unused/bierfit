@@ -1,4 +1,4 @@
-<%= form_for @user, url: admin_users_path do |f| %>
+<%= simple_form_for @user, url: admin_users_path, html: { class: 'form-horizontal' } do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -11,7 +11,20 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="field">
+    <%= f.label :username %><br>
+    <%= f.text_field :username, autofocus: true %>
   </div>
+
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <%= f.submit %>
 <% end %>

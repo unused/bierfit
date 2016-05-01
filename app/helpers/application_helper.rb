@@ -1,6 +1,6 @@
 module ApplicationHelper
   def page_title
-    "foobar title"
+    "Bierfit - a beer fitness tracker"
   end
 
   def current_user
