@@ -35,6 +35,8 @@ gem 'devise', '~> 4.0.1'
 
 # Add some style
 gem 'bootstrap-sass'
+# Style forms
+gem 'simple_form', '~> 3.2.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

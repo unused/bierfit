@@ -8,9 +8,17 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token, if: :json_request?
 
-  protected
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  private
 
   def json_request?
     request.format.json?
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
   end
 end
