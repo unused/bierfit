@@ -12,6 +12,6 @@ RSpec.feature "Guest user can sign up", type: :feature do
     fill_in "user_password", with: password
     fill_in "Password confirmation", with: password
     click_button "Sign up"
-    expect(page).to have_content "Welcome #{user.username}, grab a beer!"
+    expect(page).to have_content "Welcome, grab a beer!"
   end
 end
