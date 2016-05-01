@@ -5,4 +5,13 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true
+
+  has_many :beers, dependent: :destroy
+  has_many :gulps, through: :beers
+  has_many :consume_events
+
+  # hmm...
+  def drinking?
+    ConsumeEvent.where(user: self).current.count > 0
+  end
 end

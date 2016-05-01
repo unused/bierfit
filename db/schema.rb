@@ -11,12 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501144205) do
+ActiveRecord::Schema.define(version: 20160501180723) do
 
   create_table "admin_users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "beers", force: :cascade do |t|
+    t.integer  "amount_in_ml"
+    t.datetime "finished_at"
+    t.string   "size"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+  end
+
+  add_index "beers", ["user_id"], name: "index_beers_on_user_id"
 
   create_table "consume_events", force: :cascade do |t|
     t.integer  "analog_reading"
@@ -27,8 +38,27 @@ ActiveRecord::Schema.define(version: 20160501144205) do
     t.datetime "consumed_at"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.integer  "user"
+    t.integer  "user_id"
   end
+
+  add_index "consume_events", ["user_id"], name: "index_consume_events_on_user_id"
+
+  create_table "devices", force: :cascade do |t|
+    t.string   "label"
+    t.string   "api_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gulps", force: :cascade do |t|
+    t.integer  "amount_in_ml"
+    t.datetime "consumed_at"
+    t.integer  "beer_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "gulps", ["beer_id"], name: "index_gulps_on_beer_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -48,6 +78,7 @@ ActiveRecord::Schema.define(version: 20160501144205) do
     t.datetime "confirmation_sent_at"
     t.boolean  "admin"
     t.string   "username"
+    t.string   "name"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
