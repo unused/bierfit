@@ -33,6 +33,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # User drink Bier
 gem 'devise', '~> 4.0.1'
 
+# Add some style
+gem 'bootstrap-sass'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
