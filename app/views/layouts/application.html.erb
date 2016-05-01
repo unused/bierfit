@@ -12,11 +12,9 @@
 
   <div class="site-wrapper-inner">
 
-    <div class="cover-container">
-
       <div class="masthead clearfix">
         <div class="inner">
-          <h3 class="masthead-brand">Bierfit</h3>
+          <h3 class="masthead-brand"><%= link_to 'Bierfit', root_path %></h3>
           <nav>
             <ul class="nav masthead-nav">
               <%= content_tag :li, link_to('Dashboard', dashboard_index_path) %>
@@ -28,8 +26,9 @@
       <div class="inner cover">
         <h1 class="cover-heading"><%= 'Some Header' %></h1>
 
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+        <% flash.each do |key,message| %>
+          <div class="alert alert-<%= key %>"><%= message %></div>
+        <% end %>
 
         <%= yield %>
       </div>
@@ -37,8 +36,6 @@
       <div class="mastfoot">
         <div class="inner">Visit <%= link_to 'Bierfit at github', 'http://github.com/unused/bierfit' %></div>
       </div>
-
-    </div>
 
   </div>
 

@@ -17,3 +17,6 @@ In dev/ you find a debugging webservice you can use to see incoming messages. Do
 
 The transport service reading data from arduino and sending events to the main webservice can be found in raspberry/.
 
+## References
+
+- [Background Image](/app/assets/images/background.jpg) from [Maciej Serafinowicz via unsplash.com](https://unsplash.com/photos/BC49M6wl--8).
