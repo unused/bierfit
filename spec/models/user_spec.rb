@@ -1,5 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe User do
+  context 'validations' do
+    subject { build(:user) }
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:username) }
+    it { should validate_presence_of(:email) }
+    it { should validate_uniqueness_of(:username), case_insensitive: true }
+  end
+
+  it "should display a user is \"online\"" do
+    build(:user).drinking?.should be_false
+    user = create(:consume_event, consumed_at: 1.minute.ago).user
+    user.drinking?.should be_true
+  end
+
 end

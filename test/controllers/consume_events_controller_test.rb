@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# legacy thingy -> stick to specs for now...
 class ConsumeEventsControllerTest < ActionController::TestCase
   setup do
     @consume_event = consume_events(:one)

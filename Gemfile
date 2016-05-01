@@ -40,11 +40,18 @@ group :development, :test do
   gem 'sqlite3'
 
   # Fixtures Generator
-  gem 'factory_girl', '~> 4.7.0'
+  gem 'factory_girl_rails', '~> 4.7.0', :require => false
   # Nice Behaviour Tests
   gem 'rspec-rails', '~> 3.4.2'
   # Fake Data Generator
   gem 'faker', '~> 1.6.3'
+end
+
+group :test do
+  # Rails helpers, test one-liners
+  gem 'shoulda-matchers', '~> 3.1.1'
+  # Acceptance test framework
+  gem 'capybara', '~> 2.6.2'
 end
 
 group :development do
