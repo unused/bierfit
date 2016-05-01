@@ -17,8 +17,13 @@
           <h3 class="masthead-brand"><%= link_to 'Bierfit', root_path %></h3>
           <nav>
             <ul class="nav masthead-nav">
-              <%= content_tag :li, link_to('Dashboard', dashboard_index_path) %>
-              <%= content_tag :li, link_to('Admin', admin_users_path) if current_user.admin? %>
+              <% if user_signed_in? %>
+                <%= content_tag :li, link_to('Dashboard', dashboard_index_path) %>
+                <%= content_tag :li, link_to('Admin', admin_users_path) if current_user.admin? %>
+                <%= content_tag :li, link_to('Logout', destroy_user_session_path, method: :delete) %>
+              <% else %>
+                <%= content_tag :li, link_to('Login', new_user_session_path) %>
+              <% end %>
             </ul>
           </nav>
         </div>
@@ -41,6 +46,5 @@
   </div>
 
 </div>
-
 </body>
 </html>

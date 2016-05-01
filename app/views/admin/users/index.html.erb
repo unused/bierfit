@@ -1,6 +1,8 @@
 
 <h1>Listing Users</h1>
 
+<%= will_paginate @posts %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -25,6 +27,8 @@
   </tbody>
 </table>
 
+<%= will_paginate @posts %>
+
 <br>
 
-<%= link_to 'New User', new_admin_user_path %>
+<%= link_to 'New User', new_admin_user_path, class: 'btn btn-primary' %>
