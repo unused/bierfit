@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
 
   has_many :beers, dependent: :destroy
   has_many :gulps, through: :beers
+
+  has_many :devices, dependent: :destroy
+  has_many :device_registrations, dependent: :delete_all
+
   has_many :consume_events
 
   # hmm...

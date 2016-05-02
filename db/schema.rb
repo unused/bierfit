@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501180723) do
+ActiveRecord::Schema.define(version: 20160502162459) do
 
   create_table "admin_users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -43,11 +43,22 @@ ActiveRecord::Schema.define(version: 20160501180723) do
 
   add_index "consume_events", ["user_id"], name: "index_consume_events_on_user_id"
 
+  create_table "device_registrations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "device_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "device_registrations", ["device_id"], name: "index_device_registrations_on_device_id"
+  add_index "device_registrations", ["user_id"], name: "index_device_registrations_on_user_id"
+
   create_table "devices", force: :cascade do |t|
     t.string   "label"
     t.string   "api_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "owner_id"
   end
 
   create_table "gulps", force: :cascade do |t|

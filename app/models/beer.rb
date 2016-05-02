@@ -1,5 +1,5 @@
 class Beer < ActiveRecord::Base
-  has_many :gulps, dependent: :destroy
+  has_many :gulps, dependent: :delete_all
   belongs_to :user
 
   validates :finished_at, presence: true
