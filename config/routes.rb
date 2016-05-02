@@ -4,11 +4,12 @@ Rails.application.routes.draw do
     resources :users
   end
   devise_for :users
-
-  get 'dashboard/index'
+  resources :users, only: ['show', 'edit', 'update']
 
   resources :consume_events, only: ['index', 'create']
 
+
+  get  'dashboard/index'
   root 'dashboard#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
