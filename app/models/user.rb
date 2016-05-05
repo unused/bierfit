@@ -14,8 +14,16 @@ class User < ActiveRecord::Base
 
   has_many :consume_events
 
+  before_create :create_slug # we could do this on update as well
+
   # hmm...
   def drinking?
     ConsumeEvent.where(user: self).current.count > 0
   end
+
+  private
+
+    def create_slug
+      self.slug = self.username.parameterize
+    end
 end

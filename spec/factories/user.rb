@@ -5,6 +5,7 @@ FactoryGirl.define do
     username { Faker::Internet.user_name }
     email    { Faker::Internet.email }
     password { Faker::Internet.password }
+    public   { [true, false].sample }
     admin    { false }
 
     factory :admin do
