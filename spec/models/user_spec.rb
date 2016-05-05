@@ -13,5 +13,4 @@ describe User do
     user = create(:consume_event, consumed_at: 1.minute.ago).user
     user.drinking?.should be true
   end
-
 end
