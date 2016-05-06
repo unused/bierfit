@@ -6,8 +6,9 @@ FactoryGirl.define do
     email    { Faker::Internet.email }
     password { Faker::Internet.password }
 
-    public
-   { [true, false].sample }
+    # NOTE public is a reserved word so we have to use add_attribute
+    add_attribute(:public) { [true, false].sample }
+
     admin    { false }
 
     factory :admin do
