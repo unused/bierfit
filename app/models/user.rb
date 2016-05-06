@@ -1,3 +1,4 @@
+# Beer drinker
 class User < ActiveRecord::Base
   # TODO add :confirmable and maybe :omniauthable via twitter ;)
   devise :database_authenticatable, :registerable, :recoverable,
