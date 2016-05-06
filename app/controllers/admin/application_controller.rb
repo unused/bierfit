@@ -3,7 +3,7 @@ class Admin::ApplicationController < ApplicationController
 
   private
 
-    def authenticate_admin!
-      current_user.admin?
-    end
+  def authenticate_admin!
+    current_user.admin?
+  end
 end

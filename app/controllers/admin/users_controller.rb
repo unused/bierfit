@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.paginate(:page => params[:page])
+    @users = User.paginate(page: params[:page])
   end
 
   def show
@@ -21,7 +21,7 @@ class Admin::UsersController < ApplicationController
     if @user.save
       redirect_to @user, notice: 'User was successfully created.'
     else
-      render :new 
+      render :new
     end
   end
 
@@ -39,11 +39,12 @@ class Admin::UsersController < ApplicationController
   end
 
   private
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    def user_params
-      params.fetch(:user, {})
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.fetch(:user, {})
+  end
 end

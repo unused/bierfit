@@ -31,9 +31,9 @@ class ConsumeEventsController < ApplicationController
                                           :voltage_reading_in_mv,
                                           :fsr_resistance_in_ohms,
                                           :conductance_in_micromhos,
-                                            :force_in_newtons,
-                                            :consumed_at,
-                                            :user_id
-                                           )
+                                          :force_in_newtons,
+                                          :consumed_at,
+                                          :user_id
+                                         )
   end
 end

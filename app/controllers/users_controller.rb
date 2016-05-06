@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
@@ -20,11 +19,12 @@ class UsersController < ApplicationController
   end
 
   private
-    def set_user
-      @user = current_user
-    end
 
-    def user_params
-      params.require(:user).permit(:name)
-    end
+  def set_user
+    @user = current_user
+  end
+
+  def user_params
+    params.require(:user).permit(:name)
+  end
 end

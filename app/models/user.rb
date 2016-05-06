@@ -1,8 +1,8 @@
 # Beer drinker
 class User < ActiveRecord::Base
-  # TODO add :confirmable and maybe :omniauthable via twitter ;)
+  # TODO: add :confirmable and maybe :omniauthable via twitter ;)
   devise :database_authenticatable, :registerable, :recoverable,
-    :rememberable, :trackable, :validatable
+         :rememberable, :trackable, :validatable
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true
@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 
   private
 
-    def create_slug
-      self.slug = self.username.parameterize
-    end
+  def create_slug
+    self.slug = username.parameterize
+  end
 end

@@ -5,6 +5,7 @@ AllCops:
     - 'db/**/*'
     - 'dev/**/*'
     - 'log/**/*'
+    - 'spec/factories/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
   TargetRubyVersion: 2.2
@@ -20,3 +21,6 @@ Style/EmptyLinesAroundBlockBody:
 
 Style/Documentation:
   Enabled: false
+
+Metrics/LineLength:
+  Severity: warning
