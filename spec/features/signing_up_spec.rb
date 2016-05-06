@@ -5,6 +5,8 @@ RSpec.feature "Guest user can sign up", type: :feature do
     user     = build(:user)
     password = String(Faker::Internet.password)
 
+    login_as nil
+
     visit "/"
     click_link "Sign up"
     fill_in "Username", with: user.username

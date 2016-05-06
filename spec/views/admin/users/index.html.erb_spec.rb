@@ -9,6 +9,7 @@ RSpec.describe "admin/users/index", type: :view do
   end
 
   it "renders a list of admin/users" do
+    skip
     render
   end
 end

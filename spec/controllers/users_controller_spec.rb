@@ -5,28 +5,32 @@ RSpec.describe UsersController, type: :controller do
   describe "user profile" do
     it "is displayed to guests if public" do
       user = create(:user, public: true)
-      get :show, username: user.username
-      expect(response).to eq(:success)
+      get :show, id: user.username
+
+      expect(response).to have_http_status(:success)
     end
 
     it "is hidden to guests if private" do
       user = create(:user, public: false)
-      get :show, username: user.username
-      expect(response).to eq(:redirect)
+      get :show, id: user.username
+
+      expect(response).to redirect_to(new_user_registration_path)
     end
 
     it "is hidden to guests if private" do
       login_as create(:user)
       user = create(:user, public: false)
-      get :show, username: user.username
-      expect(response).to eq(:redirect)
+      get :show, id: user.username
+
+      expect(response).to redirect_to(new_user_registration_path)
     end
 
     it "is displayed to myself" do
       user = create(:user, public: false)
       login_as user
-      get :show, username: user.username
-      expect(response).to eq(:success)
+      get :show, id: user.username
+
+      expect(response).to have_http_status(:success)
     end
   end
 
