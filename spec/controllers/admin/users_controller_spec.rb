@@ -162,7 +162,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested admin_user" do
-        skip
+      skip
       user = Admin::User.create! valid_attributes
       expect do
         delete :destroy, { id: user.to_param }, valid_session

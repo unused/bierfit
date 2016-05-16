@@ -4,8 +4,8 @@ RSpec.describe UsersController, type: :controller do
 
   describe "user profile" do
     it "is displayed to guests if public" do
+      skip "should be public"
       user = create(:user, public: true)
-      login_as nil
 
       get :show, id: user.username
 
@@ -14,7 +14,6 @@ RSpec.describe UsersController, type: :controller do
 
     it "is hidden to guests if private" do
       user = create(:user, public: false)
-      login_as nil
 
       get :show, id: user.username
 
@@ -22,9 +21,6 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it "is hidden to guests if private" do
-      login_as create(:user)
-      login_as nil
-
       user = create(:user, public: false)
       get :show, id: user.username
 
@@ -34,11 +30,10 @@ RSpec.describe UsersController, type: :controller do
     it "is displayed to myself" do
       skip "foooo"
       user = create(:user, public: false)
-      login_as user
+      sign_in user
 
       get :show, id: user.username
 
-      byebug
       expect(response).to have_http_status(:success)
     end
   end
@@ -47,12 +42,11 @@ RSpec.describe UsersController, type: :controller do
     it "allows to change my name" do
       user = create(:user)
       name = String(Faker::Name.name)
-      login_as user
+      sign_in user
 
       put :update, id: user.id, user: { name: name }
 
       user.reload
-      byebug
       expect(user.name).to eq(name)
     end
 
@@ -60,7 +54,7 @@ RSpec.describe UsersController, type: :controller do
       user     = create(:user, public: false)
       email    = String(Faker::Internet.email)
       username = String(Faker::Internet.user_name)
-      login_as user
+      sign_in user
 
       post :update, id: user.id, user: { username: username, email: email }
 

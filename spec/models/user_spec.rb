@@ -9,8 +9,8 @@ describe User do
   end
 
   it "should display a user is \"online\"" do
-    build(:user).drinking?.should be false
+    expect(build(:user).drinking?).to be false
     user = create(:consume_event, consumed_at: 1.minute.ago).user
-    user.drinking?.should be true
+    expect(user.drinking?).to be true
   end
 end
