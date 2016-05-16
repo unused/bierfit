@@ -5,6 +5,8 @@ RSpec.describe UsersController, type: :controller do
   describe "user profile" do
     it "is displayed to guests if public" do
       user = create(:user, public: true)
+      login_as nil
+
       get :show, id: user.username
 
       expect(response).to have_http_status(:success)
@@ -12,24 +14,31 @@ RSpec.describe UsersController, type: :controller do
 
     it "is hidden to guests if private" do
       user = create(:user, public: false)
+      login_as nil
+
       get :show, id: user.username
 
-      expect(response).to redirect_to(new_user_registration_path)
+      expect(response).to redirect_to(root_path)
     end
 
     it "is hidden to guests if private" do
       login_as create(:user)
+      login_as nil
+
       user = create(:user, public: false)
       get :show, id: user.username
 
-      expect(response).to redirect_to(new_user_registration_path)
+      expect(response).to redirect_to(root_path)
     end
 
     it "is displayed to myself" do
+      skip "foooo"
       user = create(:user, public: false)
       login_as user
+
       get :show, id: user.username
 
+      byebug
       expect(response).to have_http_status(:success)
     end
   end
@@ -43,6 +52,7 @@ RSpec.describe UsersController, type: :controller do
       put :update, id: user.id, user: { name: name }
 
       user.reload
+      byebug
       expect(user.name).to eq(name)
     end
 

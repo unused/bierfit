@@ -4,13 +4,13 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
 
   def show
-    if params[:id] == current_user.username
-      @user = current_user
+    if params[:id] == current_user.try(:username)
+      set_user
     else
       @user = User.where(public: true).find_by_slug params[:id]
     end
 
-    raise ActiveRecord::RecordNotFound unless @user
+    redirect_to root_path unless @user
   end
 
   def edit

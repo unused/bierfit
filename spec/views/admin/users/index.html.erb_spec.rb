@@ -2,14 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "admin/users/index", type: :view do
   before(:each) do
-    assign(:admin_users, [
-             Admin::User.create!,
-             Admin::User.create!
-           ])
+    2.times { create(:user) }
+    assign(:users, User.paginate(page: 1))
   end
 
   it "renders a list of admin/users" do
-    skip
     render
   end
 end
