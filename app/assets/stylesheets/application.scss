@@ -1,6 +1,20 @@
 
-/* http://www.colors.commutercreative.com/grid/ */
-$brand-primary: DarkGoldenRod;
+//
+// Choose named colors:
+//   - http://www.colors.commutercreative.com/grid/
+//
+// Find bootstrap variables:
+//   - https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss 
+//
+// Testing some generated colors...
+//   - https://coolors.co/app/fffcf9-352d39-531a27-727938-445254
+
+$brand-primary:    #445254;
+$brand-background: #fffcf9;
+$btn-default-bg:   #352D39;
+$link-color:       #531a27;
+$body-bg:          #727938;
+
 
 @import "bootstrap-sprockets";
 @import "bootstrap";

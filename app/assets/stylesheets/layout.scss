@@ -1,100 +1,41 @@
 
 /* based on http://getbootstrap.com/examples/cover/ */
 
+$footer-height: 60px;
 
 /*
  * Base structure
  */
-
-html, body {
-  height: 100%;
+html {
+  min-height: 100%;
+  position: relative;
 }
 
 body {
-  background: $brand-primary;
-
-  &.devise {
+  &.devise { /* login background */
     background: image-url(background) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    text-shadow: 0 1px 3px rgba(0,0,0,.5);
   }
+
+  text-shadow: 0 1px 3px rgba(0,0,0,.6);
+  margin-bottom: $footer-height;
 }
 
-/* Extra markup and styles for table-esque vertical and horizontal centering */
-.site-wrapper {
-  display: table;
-  width: 100%;
-  height: 100%; /* For at least Firefox */
-  min-height: 100%;
-  -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
-          box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+// content within 920px
+body > .container {
+  max-width: 80vw;
+  padding-top: 80px;
 }
-.site-wrapper-inner {
-  display: table-cell;
-  vertical-align: top;
-}
-
-/* Padding for spacing */
-.inner {
-  padding: 30px;
-}
-
 
 /*
  * Header
  */
-.masthead-brand {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.masthead-nav {
-  margin-right: auto;
-  margin-left: auto;
-
-  > li {
-    display: inline-block;
-
-    + li {
-      margin-left: 20px;
-    }
-
-    > a {
-      padding-right: 0;
-      padding-left: 0;
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff; /* IE8 proofing */
-      color: rgba(255,255,255,.75);
-      border-bottom: 2px solid transparent;
-    }
-    > a:hover,
-    > a:focus {
-      background-color: transparent;
-      border-bottom-color: #a9a9a9;
-      border-bottom-color: rgba(255,255,255,.25);
-    }
-  }
-
-  > .active > a,
-  > .active > a:hover,
-  > .active > a:focus {
-    color: #fff;
-    border-bottom-color: #fff;
-  }
-}
-
-
-@media (min-width: 768px) {
-  .masthead-brand {
-    float: left;
-  }
-  .masthead-nav {
-    float: right;
-  }
+.navbar {
+  padding: 10px 10vw;
+  background-color: $brand-background;
 }
 
 /*
@@ -107,64 +48,33 @@ body {
   @extend .alert-danger;
 }
 
-a, a:focus, a:hover {
-  color: #000;
-}
-
 /* Custom default button */
 .btn-default, .btn-default:hover, .btn-default:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritence from `body` */
-  background-color: #fff;
-  border: 1px solid #fff;
+  color: #fff;
+  text-shadow: none;
+  background-color: $btn-default-bg;
+  border: none;
 }
 
-
-
 /*
- * Cover
+ * Components
  */
-.cover {
-  padding: 10% 18%;
-  text-align: center;
-  background-color: rgba(255,255,255,.6);
-
-  .btn-lg {
-    padding: 10px 20px;
-    font-weight: bold;
-  }
+.jumbotron {
+  background: rgba(255, 250, 250, 0.6);
 }
 
 /*
  * Footer
  */
-.mastfoot {
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer-height;
+
   text-align: right;
-  color: rgba(255,255,255,.5);
-}
+  padding: 20px;
 
-
-/*
- * Affix and center
- */
-
-@media (min-width: 768px) {
-  /* Pull out the header and footer */
-  .masthead {
-    position: fixed;
-    top: 0;
-  }
-  .mastfoot {
-    bottom: 0;
-  }
-  /* Start the vertical centering */
-  .site-wrapper-inner {
-    vertical-align: middle;
-  }
-  /* Handle the widths */
-  .masthead,
-  .mastfoot {
-    width: 100%; /* Must be percentage or pixels for horizontal alignment */
-  }
+  background-color: $brand-background;
 }
 

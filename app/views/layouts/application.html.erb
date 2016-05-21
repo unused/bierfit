@@ -8,44 +8,44 @@
 </head>
 <body class="<%= params[:controller].split('/').first %>">
 
-<div class="site-wrapper">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+      <%= link_to root_path, class: 'brand' do %>
+        <%= image_tag 'logo-header', alt: "Bierfit Logo" %>
+      <% end %>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <%= render partial: 'devise/shared/nav' %>
+      <%= render partial: 'shared/nav' %>
+    </div>
+  </nav>
 
-  <div class="site-wrapper-inner">
+  <div class="container">
 
-      <div class="masthead clearfix">
-        <div class="inner">
-          <h3 class="masthead-brand"><%= link_to 'Bierfit', root_path %></h3>
-          <nav>
-            <ul class="nav masthead-nav">
-              <% if user_signed_in? %>
-                <%= content_tag :li, link_to('Dashboard', dashboard_index_path) %>
-                <%= content_tag :li, link_to('Profile', edit_user_path(current_user)) %>
-                <%= content_tag :li, link_to('Admin', admin_users_path) if current_user.admin? %>
-                <%= content_tag :li, link_to('Logout', destroy_user_session_path, method: :delete) %>
-              <% else %>
-                <%= content_tag :li, link_to('Login', new_user_session_path) %>
-              <% end %>
-            </ul>
-          </nav>
+
+
+    <div class="site-wrapper-inner">
+
+        <div class="row">
+          <h1><%= page_title %></h1>
+
+          <% flash.each do |key,message| %>
+            <div class="alert alert-<%= key %>"><%= message %></div>
+          <% end %>
+
+          <%= yield %>
         </div>
-      </div>
 
-      <div class="inner cover">
-        <h1 class="cover-heading"><%= page_title %></h1>
 
-        <% flash.each do |key,message| %>
-          <div class="alert alert-<%= key %>"><%= message %></div>
-        <% end %>
-
-        <%= yield %>
-      </div>
-
-      <div class="mastfoot">
-        <div class="inner">Visit <%= link_to 'Bierfit at github', 'http://github.com/unused/bierfit' %></div>
-      </div>
+    </div>
 
   </div>
 
-</div>
+  <footer class="footer">
+    <div class="container">
+      <p>Visit <%= link_to 'Bierfit at github', 'http://github.com/unused/bierfit' %></p>
+    </div>
+  </footer>
+
 </body>
 </html>
