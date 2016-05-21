@@ -27,12 +27,20 @@
     <div class="site-wrapper-inner">
 
         <div class="row">
-          <h1><%= page_title %></h1>
-
+          <div class="col-md-6">
+            <h1><%= page_title %></h1>
+          </div>
+          <div class="col-md-6">
+            <div id="global-consume-graph" style="padding-top: 20px; height: 100px;"></div>
+            <%= render partial: 'consume_events/graph', locals: { target: '#global-consume-graph' } unless controller_name == 'consume_events' %>
+          </div>
+        </div>
+        <div class="row">
           <% flash.each do |key,message| %>
             <div class="alert alert-<%= key %>"><%= message %></div>
           <% end %>
-
+        </div>
+        <div class="row">
           <%= yield %>
         </div>
 
