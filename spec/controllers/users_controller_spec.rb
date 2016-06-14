@@ -55,7 +55,7 @@ RSpec.describe UsersController, type: :controller do
       sign_in user
 
       post :update, slug: user.username,
-        user: { username: username, email: email }
+                    user: { username: username, email: email }
 
       user.reload
       expect(user.email).to eq(user.email)
