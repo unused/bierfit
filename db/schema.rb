@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160503192154) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "user_id"
+    t.integer  "user"
   end
 
   add_index "consume_events", ["user_id"], name: "index_consume_events_on_user_id"
