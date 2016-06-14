@@ -1,0 +1,83 @@
+
+/* based on http://getbootstrap.com/examples/cover/ */
+
+$footer-height: 60px;
+
+/*
+ * Base structure
+ */
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  &.devise { /* login background */
+    background: image-url(background) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  text-shadow: 0 1px 3px rgba(0,0,0,.6);
+  margin-bottom: $footer-height;
+}
+
+// content within 920px
+body > .container {
+  max-width: 80vw;
+  padding-top: 80px;
+}
+
+/*
+ * Header
+ */
+.navbar {
+  padding: 10px 10vw;
+  background-color: $brand-background;
+}
+
+/*
+ * Content
+ */
+.alert-notice {
+  @extend .alert-success;
+}
+.alert-alert {
+  @extend .alert-danger;
+}
+.margin {
+  margin: 28px;
+}
+
+/* Custom default button */
+.btn-default, .btn-default:hover, .btn-default:focus {
+  color: #fff;
+  text-shadow: none;
+  background-color: $btn-default-bg;
+  border: none;
+}
+
+/*
+ * Components
+ */
+.jumbotron {
+  background: rgba(255, 250, 250, 0.6);
+}
+
+/*
+ * Footer
+ */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer-height;
+
+  text-align: right;
+  padding: 20px;
+
+  background-color: $brand-background;
+}
+
