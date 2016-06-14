@@ -1,0 +1,25 @@
+
+//
+// Choose named colors:
+//   - http://www.colors.commutercreative.com/grid/
+//
+// Find bootstrap variables:
+//   - https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss 
+//
+// Testing some generated colors...
+//   - https://coolors.co/app/fffcf9-bec6c5-531a27-727938-445254
+
+$brand-primary:    #445254;
+$brand-background: #fffcf9;
+$btn-default-bg:   #445254;
+$link-color:       #531a27;
+$body-bg:          #bec6c5;
+
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import "layout";
+@import "login";
+@import "admin";
+
