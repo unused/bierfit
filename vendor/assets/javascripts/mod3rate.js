@@ -240,8 +240,8 @@ var mod3rate = (function() {
     return this;
   };
 
-  var draw = function(data=false) {
-    if(data !== false) {
+  var draw = function(data) {
+    if(typeof data !== "undefined") {
       setData(data);
     }
     graph.draw();
