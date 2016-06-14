@@ -48,7 +48,7 @@ var mod3rateGraphs = {
       }
     }
     this.graphs[name] = obj;
-  },
+  }
 };
 
 mod3rateGraphs.addGraph("timeline", {
