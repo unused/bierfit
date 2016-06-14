@@ -3,10 +3,10 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
 
   def show
-    if params[:id] == current_user.try(:username)
+    if params[:slug] == current_user.try(:username)
       set_user
     else
-      @user = User.where(public: true).find_by_slug params[:id]
+      @user = User.where(public: true).find_by_slug params[:slug]
     end
 
     redirect_to root_path unless @user
@@ -30,6 +30,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name)
+    params.require(:user).permit(:name, :public)
   end
 end

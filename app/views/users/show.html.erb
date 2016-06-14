@@ -1,3 +1,11 @@
 
-<h1><%= @user.username %> (<%= @user.email %>)</h1>
-<p>Has a <%= @user.public? ? 'public' : 'private' %> profile</p>
+<div class="row">
+  <div class="col-sm-12 col-md-4 text-center">
+    <%= image_tag gravatar_url(@user.email), alt: @user.username %>
+  </div>
+  <div class="col-sm-12 col-md-8">
+    <h1><%= @user.username %></h1>
+    <p>At bierfit since <%= distance_of_time_in_words_to_now @user.created_at %></p>
+  </div>
+</div>
+

@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
 
   # TODO: -> uniqueness incasesensitive!
   validates :username, presence: true, uniqueness: true
-  validates :email, presence: true
+  validates :slug,     presence: true, uniqueness: true
+  validates :email,    presence: true
 
   has_many :beers, dependent: :destroy
   has_many :gulps, through: :beers
@@ -16,16 +17,20 @@ class User < ActiveRecord::Base
 
   has_many :consume_events
 
-  before_create :create_slug # we could do this on update as well
+  before_validation :create_slug # we could do this on update as well
 
   # hmm...
   def drinking?
     ConsumeEvent.where(user: self).current.count > 0
   end
 
+  def to_param
+    slug
+  end
+
   private
 
   def create_slug
-    self.slug = username.parameterize
+    self.slug = username.parameterize.downcase if username
   end
 end

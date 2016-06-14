@@ -4,10 +4,9 @@ RSpec.describe UsersController, type: :controller do
 
   describe "user profile" do
     it "is displayed to guests if public" do
-      skip "should be public"
       user = create(:user, public: true)
 
-      get :show, id: user.username
+      get :show, slug: user
 
       expect(response).to have_http_status(:success)
     end
@@ -15,24 +14,23 @@ RSpec.describe UsersController, type: :controller do
     it "is hidden to guests if private" do
       user = create(:user, public: false)
 
-      get :show, id: user.username
+      get :show, slug: user
 
       expect(response).to redirect_to(root_path)
     end
 
     it "is hidden to guests if private" do
       user = create(:user, public: false)
-      get :show, id: user.username
+      get :show, slug: user.username
 
       expect(response).to redirect_to(root_path)
     end
 
     it "is displayed to myself" do
-      skip "foooo"
       user = create(:user, public: false)
       sign_in user
 
-      get :show, id: user.username
+      get :show, slug: user.username
 
       expect(response).to have_http_status(:success)
     end
@@ -44,7 +42,7 @@ RSpec.describe UsersController, type: :controller do
       name = String(Faker::Name.name)
       sign_in user
 
-      put :update, id: user.id, user: { name: name }
+      put :update, slug: user.id, user: { name: name }
 
       user.reload
       expect(user.name).to eq(name)
@@ -56,7 +54,8 @@ RSpec.describe UsersController, type: :controller do
       username = String(Faker::Internet.user_name)
       sign_in user
 
-      post :update, id: user.id, user: { username: username, email: email }
+      post :update, slug: user.username,
+        user: { username: username, email: email }
 
       user.reload
       expect(user.email).to eq(user.email)
