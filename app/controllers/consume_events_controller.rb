@@ -34,7 +34,7 @@ class ConsumeEventsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list
   # through.
   def consume_event_params
-      params.require(:consume_event).permit(:user, :analog_reading,
+    params.require(:consume_event).permit(:user, :analog_reading,
                                           :voltage_reading_in_mv,
                                           :fsr_resistance_in_ohms,
                                           :conductance_in_micromhos,
