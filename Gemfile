@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby "2.2.5"
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use SCSS for stylesheets
@@ -75,4 +77,6 @@ end
 group :production do
   # Use postgres for now as production db
   gem 'pg'
+  # Use puma for production
+  gem 'puma'
 end
