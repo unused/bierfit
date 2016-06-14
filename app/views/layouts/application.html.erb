@@ -31,8 +31,7 @@
             <h1><%= page_title %></h1>
           </div>
           <div class="col-md-6">
-            <div id="global-consume-graph" style="padding-top: 20px; height: 100px;"></div>
-            <%= render partial: 'consume_events/graph', locals: { target: '#global-consume-graph' } unless controller_name == 'consume_events' %>
+            <%= render partial: 'shared/heartbeat' unless controller_name == 'consume_events' %>
           </div>
         </div>
         <div class="row">
