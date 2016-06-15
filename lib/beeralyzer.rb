@@ -6,6 +6,7 @@ class Beeralyzer
   end
 
   class BottleState
+    attr_reader :start_time, :end_time
     def add_event(value:, date:)
       @values ||= []
       @values << value
@@ -34,7 +35,11 @@ class Beeralyzer
     gulps = []
     bottle_states.each_cons(2) do |states|
       prev, curr = states
-      gulps << Gulp.new(amount_in_ml: prev.value - curr.value)
+      gulps << Gulp.new(
+        amount_in_ml: prev.value - curr.value,
+        consumed_at: prev.end_time,
+        duration_in_seconds: prev.end_time - curr.start_time
+      )
     end
     gulps
   end
