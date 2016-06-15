@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503192154) do
+ActiveRecord::Schema.define(version: 20160614223159) do
 
   create_table "admin_users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -66,8 +66,9 @@ ActiveRecord::Schema.define(version: 20160503192154) do
     t.integer  "amount_in_ml"
     t.datetime "consumed_at"
     t.integer  "beer_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "duration_in_seconds"
   end
 
   add_index "gulps", ["beer_id"], name: "index_gulps_on_beer_id"
