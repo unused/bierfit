@@ -18,16 +18,16 @@ class Beeralyzer
   end
 
   def bottle_states
-    states = @collected_data.inject([]) do |states, event|
+    bottle_states = @collected_data.each_with_object([]) do |event, states|
       if event[:value].between?(0, NULL_STATE_TOLERANCE)
         states << BottleState.new
       else
         states << BottleState.new if states.empty?
         states.last.add_event(event)
+        states
       end
-      states
     end
-    states.reject { |state| state.value.nil? }
+    bottle_states.reject { |state| state.value.nil? }
   end
 
   def gulps
