@@ -22,8 +22,8 @@
             android:alpha="127"/>
 
         <include
-        android:id="@+id/tool_bar"
-        layout="@layout/tool_bar" />
+            android:id="@+id/tool_bar"
+            layout="@layout/tool_bar" />
 
         <TextView
             android:id="@+id/description"
@@ -49,12 +49,45 @@
             android:paddingRight="20dp"
             android:layout_centerInParent="true"/>
 
+        <FrameLayout android:id="@+id/frame_reg_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/button_signup"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/signup"
+                android:onClick="signup"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="@dimen/TextDimTop"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_gravity="bottom|left"/>
+
+            <Button
+                android:id="@+id/button_login"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/login"
+                android:onClick="login"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="@dimen/TextDimTop"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_gravity="bottom|right"/>
+        </FrameLayout>
+
 
         <FrameLayout
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </FrameLayout>
+
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView

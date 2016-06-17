@@ -1,5 +1,7 @@
 package bierfit.mybierfit;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
@@ -14,8 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,11 +29,14 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
 
+    private boolean logedIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        logedIn = false;
         // Attaching the layout to the toolbar object
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         // Setting toolbar as the ActionBar with setSupportActionBar() call
@@ -37,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Initializing NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
+
+
 
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -50,16 +61,32 @@ public class MainActivity extends AppCompatActivity {
                 //Closing drawer on item click
                 mDrawer.closeDrawers();
 
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                FrameLayout fLayout = (FrameLayout)findViewById(R.id.frame_reg_layout);
+
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.nav_first_fragment:
-                        Toast.makeText(getApplicationContext(), "Inbox Selected", Toast.LENGTH_SHORT).show();
-                        ContentFragment fragment = new ContentFragment();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.frame, fragment);
+                    case R.id.nav_profile:
+                        Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
+                        LoginFragment loginFragment = new LoginFragment();
+                        fragmentTransaction.replace(R.id.frame, loginFragment);
                         fragmentTransaction.commit();
+
+
+                        fLayout.setVisibility(View.GONE);
+                        return true;
+                    case R.id.nav_dashboard:
+                        Toast.makeText(getApplicationContext(), "Dashboard Selected", Toast.LENGTH_SHORT).show();
+                        ContentFragment contentFragment = new ContentFragment();
+                        fragmentTransaction.replace(R.id.frame, contentFragment);
+                        fragmentTransaction.commit();
+
+                        fLayout.setVisibility(View.GONE);
                         return true;
 
                 }
@@ -84,6 +111,25 @@ public class MainActivity extends AppCompatActivity {
                 // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
 
                 super.onDrawerOpened(drawerView);
+
+                //no user loged in
+                if(logedIn == false) {
+
+                    Toast.makeText(getApplicationContext(), "not loged in", Toast.LENGTH_SHORT).show();
+                    FrameLayout fAcc = (FrameLayout)findViewById(R.id.account_info);
+                    fAcc.setVisibility(View.INVISIBLE);
+
+                    FrameLayout fReg = (FrameLayout)findViewById(R.id.frame_reg_layout_drawer);
+                    fReg.setVisibility(View.VISIBLE);
+                } else {
+                    FrameLayout fReg = (FrameLayout)findViewById(R.id.frame_reg_layout_drawer);
+                    fReg.setVisibility(View.INVISIBLE);
+
+                    FrameLayout fAcc = (FrameLayout)findViewById(R.id.account_info);
+                    fAcc.setVisibility(View.VISIBLE);
+
+
+                }
             }
         };
 
@@ -92,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
         //calling sync state is necessay or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
+
 
         TextView description = (TextView) findViewById(R.id.description);
         description.setText(Html.fromHtml("<body>" +
@@ -121,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
          * Buttons
          */
 
-        Button button = (Button) findViewById(R.id.button_learnmore);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button learnmore = (Button) findViewById(R.id.button_learnmore);
+        learnmore.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Open GitHub", Toast.LENGTH_SHORT).show();
 
@@ -131,6 +178,21 @@ public class MainActivity extends AppCompatActivity {
                 i.setData(Uri.parse(url));
                 startActivity(i);
 
+            }
+        });
+
+        Button signup = (Button) findViewById(R.id.button_signup);
+        signup.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Signup", Toast.LENGTH_SHORT).show();
+                            }
+        });
+
+        Button login = (Button) findViewById(R.id.button_login);
+        login.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Login", Toast.LENGTH_SHORT).show();
+                logedIn = true;
             }
         });
 
@@ -158,12 +220,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 return true;
         }
-
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

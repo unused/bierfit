@@ -8,4 +8,8 @@
     <string name="closeDrawer">close drawer</string>
     <string name="description">Noroc!</string>
     <string name="lernmore">learn more</string>
+    <string name="signup">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="username_hint">username</string>
+    <string name="password_hint">Password</string>
 </resources>
