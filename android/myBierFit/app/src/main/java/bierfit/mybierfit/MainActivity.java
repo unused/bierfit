@@ -1,22 +1,68 @@
 package bierfit.mybierfit;
 
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private DrawerLayout mDrawer;
     private Toolbar toolbar;
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
-        setSupportActionBar(toolbar);                   // Setting toolbar as the ActionBar with setSupportActionBar() call
+        // Attaching the layout to the toolbar object
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        // Setting toolbar as the ActionBar with setSupportActionBar() call
+        setSupportActionBar(toolbar);
 
+        //Initializing NavigationView
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+
+        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if (menuItem.isChecked()) menuItem.setChecked(false);
+                else menuItem.setChecked(true);
+
+                //Closing drawer on item click
+                mDrawer.closeDrawers();
+
+                //Check to see which item was being clicked and perform appropriate action
+                switch (menuItem.getItemId()) {
+
+                    //Replacing the main content with ContentFragment Which is our Inbox View;
+                    case R.id.action_user:
+                        Toast.makeText(getApplicationContext(), "Inbox Selected", Toast.LENGTH_SHORT).show();
+                        ContentFragment fragment = new ContentFragment();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.frame, fragment);
+                        fragmentTransaction.commit();
+                        return true;
+
+                }
+                // For rest of the options we just show a toast on click
+
+                return false;
+            }
+
+
+            // Find our drawer view
+            //mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        });
     }
 
     @Override
@@ -33,7 +79,16 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawer.openDrawer(GravityCompat.START);
+                return true;
+            //noinspection SimplifiableIfStatement
+            case R.id.action_settings:
+                return true;
+        }
+
+
         if (id == R.id.action_settings) {
             return true;
         }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_first_fragment"
+            android:icon="@drawable/ic_user"
+            android:title="Profile"
+            android:checked="true" />
+            <!--Note that you can set one of these elements to be default selected by using-->
+        <item
+            android:id="@+id/nav_second_fragment"
+            android:icon="@drawable/ic_dashboard"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_third_fragment"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
+
+        <item android:title="Source">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:icon="@drawable/ic_home"
+                        android:title="Home" />
+                    <item
+                        android:icon="@drawable/ic_back"
+                        android:title="Back" />
+                    <item
+                        android:icon="@drawable/ic_github"
+                        android:title="Visit us on GitHub" />
+                </group>
+            </menu>
+        </item>
+
+    </group>
+</menu>
