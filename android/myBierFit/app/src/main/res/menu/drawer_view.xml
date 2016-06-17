@@ -6,16 +6,18 @@
             android:id="@+id/nav_first_fragment"
             android:icon="@drawable/ic_user"
             android:title="Profile"
-            android:checked="true" />
+            android:checked="false" />
             <!--Note that you can set one of these elements to be default selected by using-->
         <item
             android:id="@+id/nav_second_fragment"
             android:icon="@drawable/ic_dashboard"
-            android:title="Dashboard" />
+            android:title="Dashboard"
+            android:checked="false" />
         <item
             android:id="@+id/nav_third_fragment"
             android:icon="@drawable/ic_settings"
-            android:title="Settings" />
+            android:title="Settings"
+            android:checked="false" />
 
         <item android:title="Source">
             <menu>

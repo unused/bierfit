@@ -8,37 +8,35 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include
         android:id="@+id/tool_bar"
-        layout="@layout/tool_bar"
-        ></include>
+        layout="@layout/tool_bar" />
+
+        <TextView
+            android:layout_below="@+id/tool_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/TextDimTop"
+            android:text="@string/app_name" />
 
         <FrameLayout
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <TextView
-                android:layout_below="@+id/tool_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/TextDimTop"
-                android:text="@string/app_name" />
-
         </FrameLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
         android:layout_height="match_parent"
         android:layout_width="wrap_content"
         android:layout_gravity="start"
-        headerLayout="@layout/header"
-        menu="@menu/drawer_view"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/drawer_view"
         />
 </android.support.v4.widget.DrawerLayout>
