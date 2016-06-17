@@ -1,5 +1,7 @@
 package bierfit.mybierfit;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -7,9 +9,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         // Setting toolbar as the ActionBar with setSupportActionBar() call
         setSupportActionBar(toolbar);
+
+
 
         //Initializing NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -86,6 +93,46 @@ public class MainActivity extends AppCompatActivity {
         //calling sync state is necessay or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
 
+        TextView description = (TextView) findViewById(R.id.description);
+        description.setText(Html.fromHtml("<body>" +
+                "<h1>Bierfit - Fitness Tracker</h1>\n" +
+                "\n" +
+                "  <div class=\"jumbotron row\">\n" +
+                "\n" +
+                "  <div class=\"col-md-6 text-justify\">\n" +
+                "    <h2>Noroc!</h2>\n" +
+                "    <p>\n" +
+                "      We at Bierfit believe in people, science, technology, sometimes in\n" +
+                "      coincidences but most and above all, in beer.\n" +
+                "    </p>\n" +
+                "    <p>\n" +
+                "      With Beerfit you have the excellent tool at your service to see your\n" +
+                "      personal, as well as your friends activities, earn achievments and make a\n" +
+                "      step into the future. Simply sign up to Bierfit, connect your MeiDeckel and\n" +
+                "      start drinking.\n" +
+                "    </p>\n" +
+                "       \n" +
+                "  </div>\n" +
+                "</div>\n" +
+                "</body>"));
+        //description.setTextColor(R.color.black);
+
+        /**
+         * Buttons
+         */
+
+        Button button = (Button) findViewById(R.id.button_learnmore);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Open GitHub", Toast.LENGTH_SHORT).show();
+
+                String url = "https://github.com/unused/bierfit";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+
+            }
+        });
 
     }
 
@@ -119,5 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

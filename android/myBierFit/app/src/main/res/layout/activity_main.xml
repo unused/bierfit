@@ -13,16 +13,42 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_720p"
+            android:alpha="127"/>
+
         <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar" />
 
         <TextView
+            android:id="@+id/description"
             android:layout_below="@+id/tool_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/TextDimTop"
-            android:text="@string/app_name" />
+            android:text="@string/description"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/button_learnmore"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/lernmore"
+            android:onClick="learnMore"
+            android:layout_below="@+id/description"
+            android:background="@color/colorPrimary"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="@dimen/TextDimTop"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_centerInParent="true"/>
+
 
         <FrameLayout
             android:id="@+id/frame"

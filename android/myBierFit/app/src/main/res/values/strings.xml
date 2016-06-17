@@ -6,4 +6,6 @@
     <string name="user_email">hugo@student.tugraz.at</string>
     <string name="openDrawer">open drawer</string>
     <string name="closeDrawer">close drawer</string>
+    <string name="description">Noroc!</string>
+    <string name="lernmore">learn more</string>
 </resources>
