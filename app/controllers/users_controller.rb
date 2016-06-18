@@ -9,6 +9,8 @@ class UsersController < ApplicationController
       @user = User.where(public: true).find_by_slug params[:slug]
     end
 
+    @stats = UserStatistics.new(@user)
+
     redirect_to root_path unless @user
   end
 

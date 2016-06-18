@@ -2,7 +2,7 @@
 class ConsumeEvent < ActiveRecord::Base
   belongs_to :user
 
-  validates :consumed_at, presence: true, future: true
+  validates :consumed_at, presence: true, future: false
 
   scope :current, -> { where('consumed_at >= ?', 5.minutes.ago) }
   scope :consumed_on, (lambda do |date|
