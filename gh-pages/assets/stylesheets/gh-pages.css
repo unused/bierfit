@@ -46,6 +46,9 @@ body {
   text-align: center;
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
+p {
+  text-align: justify;
+}
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
 .site-wrapper {
@@ -74,6 +77,9 @@ body {
 /*
  *  * Header
  *   */
+.masthead img {
+  margin: -7px 1em 0;
+}
 .masthead-brand {
   margin-top: 10px;
   margin-bottom: 10px;
