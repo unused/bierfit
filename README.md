@@ -19,11 +19,13 @@ $ bundle exec rubocop # run rubocop check, use -F for fast-fail
 $ bundle exec rake # run complete test suite
 ```
 
-### Webservice Development
+### Github Page
 
-In dev/ you find a debugging webservice you can use to see incoming messages. Do `$ cd dev/`, `$ bundle install` and run with `$ ./webservice_logger`.
+The [github-page](http://unused.github.io/bierfit) is located in [gh-pages directory](/gh-pages/).
 
-The transport service reading data from arduino and sending events to the main webservice can be found in raspberry/.
+```sh
+$ git subtree push --prefix gh-pages origin gh-pages # update github.io page
+```
 
 ## References
 
