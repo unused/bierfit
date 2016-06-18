@@ -7,12 +7,20 @@ FactoryGirl.define do
     user
 
     factory :beer_with_gulps do
-      transient do
-        gulps_count Faker::Number.between(3, 8)
-      end
+      after(:create) do |beer, _|
+        gulp_count = Faker::Number.between(2, 7)
+        gulp_ml    = 500 / gulp_count
+        gulps_at   = [beer.finished_at]
+        gulps_at   = gulp_count.times.map {
+          gulps_at.last - Faker::Number.between(2, 7).minutes
+        }
 
-      after(:create) do |beer, evaluator|
-        create_list(:gulp, evaluator.gulps_count, beer: beer)
+        gulps_at.reverse.each do |gulp_at|
+          create :gulp, {
+             beer: beer, consumed_at: gulp_at,
+             amount_in_ml: gulp_ml - Faker::Number.between(0, 20)
+          }
+        end
       end
     end
   end
