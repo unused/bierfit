@@ -14,9 +14,9 @@ import android.widget.TextView;
 public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.content_fragment,container,false);
+        View v = inflater.inflate(R.layout.home_fragment,container,false);
 
-        TextView description = (TextView) getActivity().findViewById(R.id.description);
+        TextView description = (TextView) v.findViewById(R.id.description);
         description.setText(Html.fromHtml("<body>" +
                 "<h1>Bierfit - Fitness Tracker</h1>\n" +
                 "\n" +

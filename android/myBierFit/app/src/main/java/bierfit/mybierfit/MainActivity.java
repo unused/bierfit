@@ -1,5 +1,6 @@
 package bierfit.mybierfit;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -51,55 +52,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                //Checking if the item is in checked state or not, if not make it in checked state
-                if (menuItem.isChecked()) menuItem.setChecked(false);
-                else menuItem.setChecked(true);
-
-                //Closing drawer on item click
-                mDrawer.closeDrawers();
-
-               //FrameLayout fLayout = (FrameLayout)findViewById(R.id.frame_reg_layout);
-
-                //Check to see which item was being clicked and perform appropriate action
-                switch (menuItem.getItemId()) {
-
-                    //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.nav_home:
-                        Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
-                        HomeFragment homeFragment = new HomeFragment();
-                        fragmentTransaction.replace(R.id.fragment_main, homeFragment);
-                        fragmentTransaction.commit();
-
-                    case R.id.nav_profile:
-                        Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
-//                        LoginFragment loginFragment = new LoginFragment();
-//                        fragmentTransaction.replace(R.id.frame, loginFragment);
-//                        fragmentTransaction.commit();
-                        toolbar.setTitle("hugo");
-
-                        //fLayout.setVisibility(View.GONE);
-                        return true;
-                    case R.id.nav_dashboard:
-                        Toast.makeText(getApplicationContext(), "Dashboard Selected", Toast.LENGTH_SHORT).show();
-//                        ContentFragment contentFragment = new ContentFragment();
-//                        fragmentTransaction.replace(R.id.frame, contentFragment);
-//                        fragmentTransaction.commit();
-
-                        //fLayout.setVisibility(View.GONE);
-                        return true;
-                    default:
-                        Toast.makeText(getApplicationContext(), "not implemented yet", Toast.LENGTH_SHORT).show();
-
-                }
-                // For rest of the options we just show a toast on click
-
-                return false;
-            }
-        });
+        setupDrawnerContent(navigationView);
 
         // Initializing Drawer Layout and ActionBarToggle
         mDrawer = (DrawerLayout) findViewById(R.id.drawer);
@@ -139,39 +92,43 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //description.setTextColor(R.color.black);
+//        Fragment home = new HomeFragment();
+//        fragmentTransaction.replace(R.id.fragment_home, home);
+//
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
 
         /**
          * Buttons
          */
 
-        Button learnmore = (Button) findViewById(R.id.button_learnmore);
-        learnmore.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Open GitHub", Toast.LENGTH_SHORT).show();
-
-                String url = "https://github.com/unused/bierfit";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-
-            }
-        });
-
-        Button signup = (Button) findViewById(R.id.button_signup);
-        signup.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Signup", Toast.LENGTH_SHORT).show();
-                            }
-        });
-
-        Button login = (Button) findViewById(R.id.button_login);
-        login.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Login", Toast.LENGTH_SHORT).show();
-                logedIn = true;
-            }
-        });
+//        Button learnmore = (Button) findViewById(R.id.button_learnmore);
+//        learnmore.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(), "Open GitHub", Toast.LENGTH_SHORT).show();
+//
+//                String url = "https://github.com/unused/bierfit";
+//                Intent i = new Intent(Intent.ACTION_VIEW);
+//                i.setData(Uri.parse(url));
+//                startActivity(i);
+//
+//            }
+//        });
+//
+//        Button signup = (Button) findViewById(R.id.button_signup);
+//        signup.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(), "Signup", Toast.LENGTH_SHORT).show();
+//                            }
+//        });
+//
+//        Button login = (Button) findViewById(R.id.button_login);
+//        login.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(), "Login", Toast.LENGTH_SHORT).show();
+//                logedIn = true;
+//            }
+//        });
 
     }
 
@@ -201,5 +158,81 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void setupDrawnerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                        selectDrawnerItem(menuItem);
+                        return true;
+                    }
+                });
+    }
+
+    public void selectDrawnerItem(MenuItem menuItem) {
+
+        //Checking if the item is in checked state or not, if not make it in checked state
+        if (menuItem.isChecked()) menuItem.setChecked(false);
+        else menuItem.setChecked(true);
+
+        //Closing drawer on item click
+        mDrawer.closeDrawers();
+
+        Fragment fragment = null;
+        Class fragmentClass = null;
+
+        //Check to see which item was being clicked and perform appropriate action
+        switch (menuItem.getItemId()) {
+
+            //Replacing the main content with ContentFragment Which is our Inbox View;
+            case R.id.nav_home:
+                Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
+
+                fragmentClass = HomeFragment.class;
+                break;
+    //                        HomeFragment homeFragment = new HomeFragment();
+    //                        fragmentTransaction.replace(R.id.fragment_main, homeFragment);
+    //                        fragmentTransaction.commit();
+    //                        Fragment home = new HomeFragment();
+    //                        fragmentTransaction.replace(R.id.fragment_home, home);
+    //
+    //                        fragmentTransaction.addToBackStack(null);
+    //                        fragmentTransaction.commit();
+
+            case R.id.nav_profile:
+                Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
+    //                        LoginFragment loginFragment = new LoginFragment();
+    //                        fragmentTransaction.replace(R.id.frame, loginFragment);
+    //                        fragmentTransaction.commit();
+    //                        toolbar.setTitle("hugo");
+
+                //fLayout.setVisibility(View.GONE);
+                break;
+            case R.id.nav_dashboard:
+                Toast.makeText(getApplicationContext(), "Dashboard Selected", Toast.LENGTH_SHORT).show();
+    //                        ContentFragment contentFragment = new ContentFragment();
+    //                        fragmentTransaction.replace(R.id.frame, contentFragment);
+    //                        fragmentTransaction.commit();
+
+                //fLayout.setVisibility(View.GONE);
+                break;
+            default:
+                Toast.makeText(getApplicationContext(), "not implemented yet", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        // For rest of the options we just show a toast on click
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        fragmentTransaction.replace(R.id.flContet, fragment);
+        fragmentTransaction.commit();
+        //mDrawer.closeDrawer();
+    }
 
 }

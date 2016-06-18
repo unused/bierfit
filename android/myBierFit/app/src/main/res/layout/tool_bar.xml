@@ -5,6 +5,7 @@
     android:background="@color/colorPrimary"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:elevation="4dp"
+    android:layout_gravity="top"
     >
 
 </android.support.v7.widget.Toolbar>
