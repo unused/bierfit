@@ -15,4 +15,7 @@
 //= require jquery_ujs
 //= require d3.v3.min
 //= require mod3rate
+//= require liquidFillGauge
 //= require_tree .
+
+$(function () { $('[data-toggle="popover"]').popover() });
