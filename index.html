@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Bierfit - a beer fitness tracker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/stylesheets/gh-pages.css">
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">Bierfit</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li><a href="#build">Build</a></li>
+                  <li><a href="#connect">Connect</a></li>
+                  <li><a href="#drink">Drink</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <div id="brand-wrapper">
+          <div class="cover-container">
+            <img alt="Prostosaurus" src="assets/images/logo.png" class="brand-logo">
+            <h1 class="cover-heading">Bierfit</h1>
+            <p class="lead">
+              A beer fitness tracker.
+            </p>
+          </div>
+        </div>
+
+        <div class="cover-container">
+          <div class="inner cover">
+            <h2 id="build">Build your own MeiDeckel</h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Q9vuBc2jKOU" frameborder="0" allowfullscreen></iframe>
+            <p class="lead">
+              MeiDeckel is the base device you need to track the sips taken,
+              the level of beer in your bottle and send this data to bierfit
+              application servers that will further process, analyze and
+              present your information.
+            </p>
+
+            <div class="spacer"></div>
+            <h2 id="connect">Connect your MeiDeckel</h2>
+            <p class="lead">
+              Within your Bierfit profile settings you can register a new
+              device. Use the given Api-Key to setup a connection. Your
+              registered account will be the default user, if you are using a
+              keypad and your friends joined your device, you can switch the
+              user at any time.
+            </p>
+
+            <div class="spacer"></div>
+            <h2 id="drink">Use your MeiDeckel to remember... hmm... beer</h2>
+            <p class="lead">
+              As soon as you successfully setup the MeiDeckel and the device
+              is online, a signal batch in your users profile will show you
+              that Beerfit is currently tracking your consumption data.
+            </p>
+
+            <p class="alert alert-warning">
+              This project is under heavy development and details may change
+              soon. If you want to be an early tester please
+              <a href="mailto:bierfit@lipautz.org">contact us</a> before
+              setting up a MeiDeckel and propably dealing early issues. We are
+              looking forward to hear from you as well as join you for a beer.
+            </p>
+
+            <p class="lead">
+              <a href="https://github.com/unused/bierfit/blob/master/INSTALL.md" class="btn btn-lg btn-default">Start Now</a>
+            </p>
+          </div>
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>Visit Bierfit at <a href="https://github.com/unused/bierfit">github.com</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      (function() {
+        var brand_wrap = document.getElementById("brand-wrapper");
+        var width      = brand_wrap.offsetWidth;
+        var height     = brand_wrap.offsetHeight;
+        brand_wrap.style.backgroundImage = "url('https://unsplash.it/"+width+"/"+height+"?random&blur')";
+      })();
+    </script>
+  </body>
+</html>
