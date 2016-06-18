@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView navigationView;
+    private FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
     private boolean logedIn;
 
@@ -42,12 +44,11 @@ public class MainActivity extends AppCompatActivity {
         // Setting toolbar as the ActionBar with setSupportActionBar() call
         setSupportActionBar(toolbar);
 
-
+        fragmentManager = getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
 
         //Initializing NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
-
-
 
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -61,33 +62,37 @@ public class MainActivity extends AppCompatActivity {
                 //Closing drawer on item click
                 mDrawer.closeDrawers();
 
-
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                FrameLayout fLayout = (FrameLayout)findViewById(R.id.frame_reg_layout);
+               //FrameLayout fLayout = (FrameLayout)findViewById(R.id.frame_reg_layout);
 
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.nav_profile:
-                        Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
-                        LoginFragment loginFragment = new LoginFragment();
-                        fragmentTransaction.replace(R.id.frame, loginFragment);
+                    case R.id.nav_home:
+                        Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
+                        HomeFragment homeFragment = new HomeFragment();
+                        fragmentTransaction.replace(R.id.fragment_main, homeFragment);
                         fragmentTransaction.commit();
 
+                    case R.id.nav_profile:
+                        Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
+//                        LoginFragment loginFragment = new LoginFragment();
+//                        fragmentTransaction.replace(R.id.frame, loginFragment);
+//                        fragmentTransaction.commit();
+                        toolbar.setTitle("hugo");
 
-                        fLayout.setVisibility(View.GONE);
+                        //fLayout.setVisibility(View.GONE);
                         return true;
                     case R.id.nav_dashboard:
                         Toast.makeText(getApplicationContext(), "Dashboard Selected", Toast.LENGTH_SHORT).show();
-                        ContentFragment contentFragment = new ContentFragment();
-                        fragmentTransaction.replace(R.id.frame, contentFragment);
-                        fragmentTransaction.commit();
+//                        ContentFragment contentFragment = new ContentFragment();
+//                        fragmentTransaction.replace(R.id.frame, contentFragment);
+//                        fragmentTransaction.commit();
 
-                        fLayout.setVisibility(View.GONE);
+                        //fLayout.setVisibility(View.GONE);
                         return true;
+                    default:
+                        Toast.makeText(getApplicationContext(), "not implemented yet", Toast.LENGTH_SHORT).show();
 
                 }
                 // For rest of the options we just show a toast on click
@@ -116,19 +121,12 @@ public class MainActivity extends AppCompatActivity {
                 if(logedIn == false) {
 
                     Toast.makeText(getApplicationContext(), "not loged in", Toast.LENGTH_SHORT).show();
-                    FrameLayout fAcc = (FrameLayout)findViewById(R.id.account_info);
-                    fAcc.setVisibility(View.INVISIBLE);
 
-                    FrameLayout fReg = (FrameLayout)findViewById(R.id.frame_reg_layout_drawer);
-                    fReg.setVisibility(View.VISIBLE);
+                    ((TextView)findViewById(R.id.username)).setText("not logged in");
+                    ((TextView)findViewById(R.id.email)).setText("you need to log in");
                 } else {
-                    FrameLayout fReg = (FrameLayout)findViewById(R.id.frame_reg_layout_drawer);
-                    fReg.setVisibility(View.INVISIBLE);
-
-                    FrameLayout fAcc = (FrameLayout)findViewById(R.id.account_info);
-                    fAcc.setVisibility(View.VISIBLE);
-
-
+                    ((TextView)findViewById(R.id.username)).setText("TODO username");
+                    ((TextView)findViewById(R.id.email)).setText("TODO email");
                 }
             }
         };
@@ -140,28 +138,7 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
 
-        TextView description = (TextView) findViewById(R.id.description);
-        description.setText(Html.fromHtml("<body>" +
-                "<h1>Bierfit - Fitness Tracker</h1>\n" +
-                "\n" +
-                "  <div class=\"jumbotron row\">\n" +
-                "\n" +
-                "  <div class=\"col-md-6 text-justify\">\n" +
-                "    <h2>Noroc!</h2>\n" +
-                "    <p>\n" +
-                "      We at Bierfit believe in people, science, technology, sometimes in\n" +
-                "      coincidences but most and above all, in beer.\n" +
-                "    </p>\n" +
-                "    <p>\n" +
-                "      With Beerfit you have the excellent tool at your service to see your\n" +
-                "      personal, as well as your friends activities, earn achievments and make a\n" +
-                "      step into the future. Simply sign up to Bierfit, connect your MeiDeckel and\n" +
-                "      start drinking.\n" +
-                "    </p>\n" +
-                "       \n" +
-                "  </div>\n" +
-                "</div>\n" +
-                "</body>"));
+
         //description.setTextColor(R.color.black);
 
         /**

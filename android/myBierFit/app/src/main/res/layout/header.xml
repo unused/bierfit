@@ -52,38 +52,5 @@
 
     </FrameLayout>
 
-    <FrameLayout android:id="@+id/frame_reg_layout_drawer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone">
-
-        <Button
-            android:id="@+id/button_signup"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/signup"
-            android:onClick="signup"
-            android:background="@color/colorPrimary"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="@dimen/TextDimTop"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_gravity="bottom|left"/>
-
-        <Button
-            android:id="@+id/button_login"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/login"
-            android:onClick="login"
-            android:background="@color/colorPrimary"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="@dimen/TextDimTop"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_gravity="bottom|right"/>
-    </FrameLayout>
-
 
 </RelativeLayout>
