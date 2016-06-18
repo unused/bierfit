@@ -86,12 +86,12 @@
       </div>
     </div>
     <script type="text/javascript">
-      document.addEventListener("DOMContentLoaded", function() {
+      setTimeout(function() {
         var brand_wrap = document.getElementById("brand-wrapper");
         var width      = brand_wrap.offsetWidth;
         var height     = brand_wrap.offsetHeight;
         brand_wrap.style.backgroundImage = "url('https://unsplash.it/"+width+"/"+height+"?random&blur')";
-      });
+      }, 150); // hmm...
     </script>
   </body>
 </html>
