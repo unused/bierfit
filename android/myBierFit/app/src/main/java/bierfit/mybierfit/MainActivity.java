@@ -191,12 +191,8 @@ public class MainActivity extends AppCompatActivity {
             //Replacing the main content with ContentFragment Which is our Inbox View;
             case R.id.nav_home:
                 Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
-
-//                if(fragmentManager.findFragmentById(R.id.fragment_main)==null)
                 fragmentClass = HomeFragment.class;
                 break;
-
-
             case R.id.nav_profile:
                 Toast.makeText(getApplicationContext(), "Profile selected", Toast.LENGTH_SHORT).show();
                 fragmentClass = ProfileFragment.class;
@@ -216,6 +212,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+                break;
+            case R.id.nav_logout:
+                setLogedIn(false);
+                Toast.makeText(getApplicationContext(), "logged out", Toast.LENGTH_SHORT).show();
+                fragmentClass = HomeFragment.class;
                 break;
             default:
                 Toast.makeText(getApplicationContext(), "not implemented yet", Toast.LENGTH_SHORT).show();
