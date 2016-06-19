@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+
+    public boolean isLogedIn() {
+        return logedIn;
+    }
+
+    public void setLogedIn(boolean logedIn) {
+        this.logedIn = logedIn;
+    }
 
     private boolean logedIn;
 
@@ -73,13 +82,18 @@ public class MainActivity extends AppCompatActivity {
                 //no user loged in
                 if(logedIn == false) {
 
-                    Toast.makeText(getApplicationContext(), "not loged in", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"not logged in", Toast.LENGTH_SHORT).show();
+                    ((TextView)drawerView.findViewById(R.id.username)).setText("not logged in");
+                    ((TextView)drawerView.findViewById(R.id.email)).setText("you need to log in");
 
-                    ((TextView)findViewById(R.id.username)).setText("not logged in");
-                    ((TextView)findViewById(R.id.email)).setText("you need to log in");
+                    ((NavigationView)drawerView).getMenu().findItem(R.id.nav_logout).setVisible(false);
                 } else {
-                    ((TextView)findViewById(R.id.username)).setText("TODO username");
-                    ((TextView)findViewById(R.id.email)).setText("TODO email");
+                    Toast.makeText(getApplicationContext(), "logged in", Toast.LENGTH_SHORT).show();
+
+                    ((TextView)drawerView.findViewById(R.id.username)).setText("TODO username");
+                    ((TextView)drawerView.findViewById(R.id.email)).setText("TODO email");
+
+                    ((NavigationView)drawerView).getMenu().findItem(R.id.nav_logout).setVisible(true);
                 }
             }
         };
@@ -92,43 +106,30 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        Fragment home = new HomeFragment();
-//        fragmentTransaction.replace(R.id.fragment_home, home);
-//
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
+        try {
+            fragmentTransaction.replace(R.id.flContet, (Fragment)HomeFragment.class.newInstance());
+//            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
-        /**
-         * Buttons
-         */
 
-//        Button learnmore = (Button) findViewById(R.id.button_learnmore);
-//        learnmore.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "Open GitHub", Toast.LENGTH_SHORT).show();
-//
-//                String url = "https://github.com/unused/bierfit";
-//                Intent i = new Intent(Intent.ACTION_VIEW);
-//                i.setData(Uri.parse(url));
-//                startActivity(i);
-//
-//            }
-//        });
-//
-//        Button signup = (Button) findViewById(R.id.button_signup);
-//        signup.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "Signup", Toast.LENGTH_SHORT).show();
-//                            }
-//        });
-//
-//        Button login = (Button) findViewById(R.id.button_login);
-//        login.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "Login", Toast.LENGTH_SHORT).show();
-//                logedIn = true;
-//            }
-//        });
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            Log.i("MainActivity", "popping backstack");
+            fragmentManager.popBackStack();
+        } else {
+            Log.i("MainActivity", "nothing on backstack, calling super");
+            super.onBackPressed();
+        }
 
     }
 
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         Class fragmentClass = null;
 
+        boolean newFragment = true;
         //Check to see which item was being clicked and perform appropriate action
         switch (menuItem.getItemId()) {
 
@@ -190,49 +192,49 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_home:
                 Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
 
+//                if(fragmentManager.findFragmentById(R.id.fragment_main)==null)
                 fragmentClass = HomeFragment.class;
                 break;
-    //                        HomeFragment homeFragment = new HomeFragment();
-    //                        fragmentTransaction.replace(R.id.fragment_main, homeFragment);
-    //                        fragmentTransaction.commit();
-    //                        Fragment home = new HomeFragment();
-    //                        fragmentTransaction.replace(R.id.fragment_home, home);
-    //
-    //                        fragmentTransaction.addToBackStack(null);
-    //                        fragmentTransaction.commit();
+
 
             case R.id.nav_profile:
-                Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
-    //                        LoginFragment loginFragment = new LoginFragment();
-    //                        fragmentTransaction.replace(R.id.frame, loginFragment);
-    //                        fragmentTransaction.commit();
-    //                        toolbar.setTitle("hugo");
-
-                //fLayout.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "Profile selected", Toast.LENGTH_SHORT).show();
+                fragmentClass = ProfileFragment.class;
                 break;
             case R.id.nav_dashboard:
-                Toast.makeText(getApplicationContext(), "Dashboard Selected", Toast.LENGTH_SHORT).show();
-    //                        ContentFragment contentFragment = new ContentFragment();
-    //                        fragmentTransaction.replace(R.id.frame, contentFragment);
-    //                        fragmentTransaction.commit();
+                Toast.makeText(getApplicationContext(), "Dashboard selected", Toast.LENGTH_SHORT).show();
+                fragmentClass = ContentFragment.class;
+                break;
+            case R.id.nav_settings:
+                Toast.makeText(getApplicationContext(), "Settings selected", Toast.LENGTH_SHORT).show();
+                fragmentClass = SettingsFragment.class;
+                break;
+            case R.id.nav_github:
 
-                //fLayout.setVisibility(View.GONE);
+                newFragment = false;
+                String url = this.getResources().getString(R.string.github);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
                 break;
             default:
                 Toast.makeText(getApplicationContext(), "not implemented yet", Toast.LENGTH_SHORT).show();
                 break;
         }
-        // For rest of the options we just show a toast on click
+        if(newFragment) {
+            // For rest of the options we just show a toast on click
 
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.flContet, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
-
-        fragmentTransaction.replace(R.id.flContet, fragment);
-        fragmentTransaction.commit();
-        //mDrawer.closeDrawer();
     }
 
 }
