@@ -3,15 +3,14 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
 
   def show
-    if params[:slug] == current_user.try(:username)
-      set_user
-    else
-      @user = User.where(public: true).find_by_slug params[:slug]
-    end
-
+    fetch_user
     @stats = UserStatistics.new(@user)
 
     redirect_to root_path unless @user
+    respond_to do |format|
+      format.html {} # index.html.erb
+      format.json { render json: @user }
+    end
   end
 
   def edit
@@ -26,6 +25,14 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def fetch_user
+    if params[:slug] == current_user.try(:username)
+      set_user
+    else
+      @user = User.where(public: true).find_by_slug params[:slug]
+    end
+  end
 
   def set_user
     @user = current_user

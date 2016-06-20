@@ -29,6 +29,15 @@ class UserStatistics
     beers.group('date(finished_at)').count.values.max
   end
 
+  def average_beer_per_session_day
+    values = beers.group('date(finished_at)').count.values
+    values.sum.to_f / values.size
+  end
+
+  def average_beer_per_day
+    # TODO
+  end
+
   def average_gulp_amount
     gulps.average(:amount_in_ml)
   end

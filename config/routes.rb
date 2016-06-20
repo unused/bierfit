@@ -4,7 +4,10 @@ Rails.application.routes.draw do
     resources :users
   end
   devise_for :users
-  resources :users, only: ['show', 'edit', 'update'], param: :slug
+  resources :users, only: ['show', 'edit', 'update'], param: :slug do
+    resources :beer, only: ['index'], format: :json
+    get 'beer/:action', controller: :beer, format: :json
+  end
 
   resources :consume_events, only: ['index', 'create']
 
