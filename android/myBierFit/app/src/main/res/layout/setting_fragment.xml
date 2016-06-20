@@ -113,6 +113,7 @@
                         android:paddingBottom="7dp"/>
 
                     <Button
+                        android:id="@+id/button_update"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/button_settings"/>

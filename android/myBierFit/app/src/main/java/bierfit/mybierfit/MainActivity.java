@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         // Setting toolbar as the ActionBar with setSupportActionBar() call
         setSupportActionBar(toolbar);
 
+
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -82,13 +83,13 @@ public class MainActivity extends AppCompatActivity {
                 //no user loged in
                 if(logedIn == false) {
 
-                    Toast.makeText(getApplicationContext(),"not logged in", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),"not logged in", Toast.LENGTH_SHORT).show();
                     ((TextView)drawerView.findViewById(R.id.username)).setText("not logged in");
                     ((TextView)drawerView.findViewById(R.id.email)).setText("you need to log in");
 
                     ((NavigationView)drawerView).getMenu().findItem(R.id.nav_logout).setVisible(false);
                 } else {
-                    Toast.makeText(getApplicationContext(), "logged in", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "logged in", Toast.LENGTH_SHORT).show();
 
                     ((TextView)drawerView.findViewById(R.id.username)).setText("TODO username");
                     ((TextView)drawerView.findViewById(R.id.email)).setText("TODO email");
@@ -105,30 +106,26 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
 
-
-        try {
-            fragmentTransaction.replace(R.id.flContet, (Fragment)HomeFragment.class.newInstance());
-//            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-
-
-
+        //init home fragment
+        switchFragment(HomeFragment.class);
     }
 
     @Override
     public void onBackPressed() {
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            Log.i("MainActivity", "popping backstack");
-            fragmentManager.popBackStack();
+
+
+        //first close drawermenu
+        if(mDrawer.isDrawerOpen(navigationView)) {
+            mDrawer.closeDrawers();
         } else {
-            Log.i("MainActivity", "nothing on backstack, calling super");
-            super.onBackPressed();
+            //second: go back
+            if (fragmentManager.getBackStackEntryCount() > 0) {
+                fragmentManager.popBackStack();
+            } else {
+                //third: close app
+                Log.i("MainActivity", "nothing on backstack, calling super");
+                super.onBackPressed();
+            }
         }
 
     }
@@ -145,15 +142,17 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
                 return true;
-            //noinspection SimplifiableIfStatement
             case R.id.action_settings:
+                switchFragment(SettingsFragment.class);
                 return true;
+            case R.id.action_user:
+                switchFragment(ProfileFragment.class);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -181,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
         //Closing drawer on item click
         mDrawer.closeDrawers();
 
-        Fragment fragment = null;
         Class fragmentClass = null;
 
         boolean newFragment = true;
@@ -190,19 +188,19 @@ public class MainActivity extends AppCompatActivity {
 
             //Replacing the main content with ContentFragment Which is our Inbox View;
             case R.id.nav_home:
-                Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
                 fragmentClass = HomeFragment.class;
                 break;
             case R.id.nav_profile:
-                Toast.makeText(getApplicationContext(), "Profile selected", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Profile selected", Toast.LENGTH_SHORT).show();
                 fragmentClass = ProfileFragment.class;
                 break;
             case R.id.nav_dashboard:
-                Toast.makeText(getApplicationContext(), "Dashboard selected", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Dashboard selected", Toast.LENGTH_SHORT).show();
                 fragmentClass = ContentFragment.class;
                 break;
             case R.id.nav_settings:
-                Toast.makeText(getApplicationContext(), "Settings selected", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Settings selected", Toast.LENGTH_SHORT).show();
                 fragmentClass = SettingsFragment.class;
                 break;
             case R.id.nav_github:
@@ -215,27 +213,34 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_logout:
                 setLogedIn(false);
-                Toast.makeText(getApplicationContext(), "logged out", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "logged out", Toast.LENGTH_SHORT).show();
                 fragmentClass = HomeFragment.class;
                 break;
             default:
+                // For rest of the options we just show a toast on click
                 Toast.makeText(getApplicationContext(), "not implemented yet", Toast.LENGTH_SHORT).show();
                 break;
         }
         if(newFragment) {
-            // For rest of the options we just show a toast on click
-
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.flContet, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            switchFragment(fragmentClass);
         }
-    }
 
+    }
+    private void switchFragment(Class newFragment) {
+
+        Fragment fragment = null;
+
+        try {
+            fragment = (Fragment) newFragment.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.flContet, fragment);
+        if(newFragment != HomeFragment.class)
+            fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 }

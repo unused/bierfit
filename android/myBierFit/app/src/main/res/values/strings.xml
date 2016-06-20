@@ -16,4 +16,5 @@
     <string name="cb_settings">user profile is public visible</string>
     <string name="button_settings">update</string>
     <string name="bierfitinfo">Bierfit User Position</string>
+    <string name="search">search</string>
 </resources>
