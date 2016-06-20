@@ -7,11 +7,11 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def average_beer_per_session
-    "%.2f".format stats.average_beer_per_session_day
+    format("%.2f", stats.average_beer_per_session_day)
   end
 
   def average_gulp_length
-    "%.2f".format stats.average_gulp_amount
+    format("%.2f", stats.average_gulp_amount)
   end
 
   private
