@@ -12,6 +12,11 @@ class UsersController < ApplicationController
     @stats = UserStatistics.new(@user)
 
     redirect_to root_path unless @user
+
+    respond_to do |format|
+      format.html { } # index.html.erb
+      format.json { render json: @user }
+    end
   end
 
   def edit
