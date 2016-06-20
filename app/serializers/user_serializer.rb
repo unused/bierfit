@@ -1,11 +1,9 @@
 class UserSerializer < ActiveModel::Serializer
-  DATETIME_FORMAT = "%d-%m-%Y %H:%M:%S"
-
   attributes :username, :bierfit_since, :average_beer_per_session,
     :average_gulp_length
 
   def bierfit_since
-    object.created_at.strftime DATETIME_FORMAT
+    object.created_at.strftime API_DATETIME_FORMAT
   end
 
   def average_beer_per_session
