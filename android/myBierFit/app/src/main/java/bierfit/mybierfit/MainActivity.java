@@ -31,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
+    private FragmentTransaction fragmentTransaction;
 
+//    Boolean store if any user is logged in
     public boolean isLogedIn() {
         return logedIn;
     }
@@ -43,10 +44,15 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean logedIn;
 
+
+    public AccountHandler accountHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        accountHandler = new AccountHandler(this);
 
         logedIn = false;
         // Attaching the layout to the toolbar object
@@ -80,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                 super.onDrawerOpened(drawerView);
 
-                //no user loged in
+                //no User loged in
                 if(logedIn == false) {
 
 //                    Toast.makeText(getApplicationContext(),"not logged in", Toast.LENGTH_SHORT).show();

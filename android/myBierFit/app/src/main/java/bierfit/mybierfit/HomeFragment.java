@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by kosha on 18/06/2016.
@@ -65,17 +68,42 @@ public class HomeFragment extends Fragment {
         Button signup = (Button) v.findViewById(R.id.button_signup);
         signup.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Signup", Toast.LENGTH_SHORT).show();
+
+
+                TextView tvUsername = (TextView)getActivity().findViewById(R.id.login);
+                TextView tvPassword = (TextView)getActivity().findViewById(R.id.password);
+                boolean success = false;
+
+                if(tvPassword.getText() != null && tvUsername.getText() != null) {
+                    //TODO add email
+                    success = ((MainActivity) getActivity()).accountHandler.registerUser(
+                            tvUsername.getText().toString(),
+                            tvPassword.getText().toString()
+                    );
+                }
+
+                if(success)
+                    Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getActivity().getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                Log.e("Register", "" + success);
                             }
         });
 
         Button login = (Button) v.findViewById(R.id.button_login);
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Login", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity().getApplicationContext(), "Login", Toast.LENGTH_SHORT).show();
                 //TODO check if successful
-                ((MainActivity)getActivity()).setLogedIn(true);
-                ((FrameLayout)getActivity().findViewById(R.id.frame_reg_layout)).setVisibility(View.GONE);
+                TextView tvUsername = (TextView)getActivity().findViewById(R.id.login);
+                TextView tvPassword = (TextView)getActivity().findViewById(R.id.password);
+
+                if(((MainActivity) getActivity()).accountHandler.loginUser(
+                        tvUsername.getText().toString(), tvPassword.getText().toString())) {
+
+                    ((MainActivity) getActivity()).setLogedIn(true);
+                    ((FrameLayout) getActivity().findViewById(R.id.frame_reg_layout)).setVisibility(View.GONE);
+                }
             }
         });
 
