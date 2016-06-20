@@ -7,4 +7,3 @@ class Beerstogram
     []
   end
 end
-

@@ -6,29 +6,28 @@ class BeerController < ApplicationController
   end
 
   def daily
-    beers  = fetch_beers date.beginning_of_day..date.end_of_day
+    beers  = fetch_beers(date.beginning_of_day..date.end_of_day)
     report = Report.new(beers)
     render json: report.summary.merge(beerstogram: Beerstogram.new(beers))
   end
 
   def weekly
-    beers  = fetch_beers (date - 1.week).beginning_of_day..date.end_of_day
+    beers  = fetch_beers((date - 1.week).beginning_of_day..date.end_of_day)
     report = Report.new(beers)
     render json: report.summary.merge(beerstogram: Beerstogram.new(beers))
   end
 
   def monthly
-    beers  = fetch_beers (date - 1.month).beginning_of_day..date.end_of_day
+    beers  = fetch_beers((date - 1.month).beginning_of_day..date.end_of_day)
     report = Report.new(beers)
     render json: report.summary.merge(beerstogram: Beerstogram.new(beers))
   end
 
   def yearly
-    beers  = fetch_beers (date - 1.year).beginning_of_day..date.end_of_day
+    beers  = fetch_beers((date - 1.year).beginning_of_day..date.end_of_day)
     report = Report.new(beers)
     render json: report.summary.merge(beerstogram: Beerstogram.new(beers))
   end
-
 
   private
 

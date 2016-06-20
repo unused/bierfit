@@ -39,8 +39,8 @@ class Report
     {
       total_beer: total_beer,
       sessions: sessions_count,
-      average_gulp_per_beer: "%.2f" % average_gulp_per_beer,
-      average_gulp_length: "%.2f" % average_gulp_length,
+      average_gulp_per_beer: "%.2f".format(average_gulp_per_beer),
+      average_gulp_length: "%.2f".format(average_gulp_length),
       max_gulp: max_gulp
     }
   end
