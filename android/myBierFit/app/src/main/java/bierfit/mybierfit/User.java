@@ -26,6 +26,18 @@ public class User {
     private Date confirmation_sent_at;
     private boolean isAdmin = false;
 
+    private boolean isLogedIn = false;
+
+    public boolean isLogedIn() {
+        return isLogedIn;
+    }
+
+    public void setLogedIn(boolean logedIn) {
+        isLogedIn = logedIn;
+    }
+
+
+
     public String getEmail() {
         return email;
     }
@@ -155,7 +167,7 @@ public class User {
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -187,7 +199,7 @@ public class User {
                 Date current_sign_in_at, Date last_sign_in_at, String current_sign_in_ip,
                 String last_sign_in_ip, Date created_at, Date updated_at, String confirmation_token,
                 Date confirmed_at, Date confirmation_sent_at, boolean isAdmin, String username,
-                boolean isPublic, String slug) {
+                boolean isPublic, String slug, Boolean isLogedIn) {
 
         this.email = email;
         this.encrypted_password = encrypted_password;
@@ -208,6 +220,7 @@ public class User {
         this.username = username;
         this.isPublic = isPublic;
         this.slug = slug;
+        this.isLogedIn = isLogedIn;
     }
 
     //constructor

@@ -82,11 +82,15 @@ public class HomeFragment extends Fragment {
                     );
                 }
 
-                if(success)
+                if(success) {
                     Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+                    ((MainActivity) getActivity()).accountHandler.loginUser(
+                            tvUsername.getText().toString(), tvPassword.getText().toString());
+                }
                 else
                     Toast.makeText(getActivity().getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
                 Log.e("Register", "" + success);
+
                             }
         });
 
@@ -102,8 +106,12 @@ public class HomeFragment extends Fragment {
                         tvUsername.getText().toString(), tvPassword.getText().toString())) {
 
                     ((MainActivity) getActivity()).setLogedIn(true);
+                    ((TextView)getActivity().findViewById(R.id.username)).setText(tvUsername.getText().toString());
+                    ((TextView)getActivity().findViewById(R.id.email)).setText(tvUsername.getText().toString() + "@student.tugraz.at");
                     ((FrameLayout) getActivity().findViewById(R.id.frame_reg_layout)).setVisibility(View.GONE);
                 }
+
+
             }
         });
 

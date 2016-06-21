@@ -97,10 +97,13 @@ public class MainActivity extends AppCompatActivity {
                 } else {
 //                    Toast.makeText(getApplicationContext(), "logged in", Toast.LENGTH_SHORT).show();
 
-                    ((TextView)drawerView.findViewById(R.id.username)).setText("TODO username");
-                    ((TextView)drawerView.findViewById(R.id.email)).setText("TODO email");
+                    User logedUser = accountHandler.getLogedUser();
+                    if(logedUser != null) {
+                        ((TextView) drawerView.findViewById(R.id.username)).setText(logedUser.getUsername());
+                        ((TextView) drawerView.findViewById(R.id.email)).setText(logedUser.getEmail());
 
-                    ((NavigationView)drawerView).getMenu().findItem(R.id.nav_logout).setVisible(true);
+                        ((NavigationView) drawerView).getMenu().findItem(R.id.nav_logout).setVisible(true);
+                    }
                 }
             }
         };
@@ -220,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_logout:
                 setLogedIn(false);
                 //Toast.makeText(getApplicationContext(), "logged out", Toast.LENGTH_SHORT).show();
+                accountHandler.logoutUser();
                 fragmentClass = HomeFragment.class;
                 break;
             default:

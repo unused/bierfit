@@ -58,6 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String USER_COLUMN_NAME = "name";
     public static final String USER_COLUMN_PUBLIC = "public";
     public static final String USER_COLUMN_SLUG= "slug";
+    public static final String USER_COLUMN_LOGEDIN= "isLogedIn";
 
 
     // Table Create Statements
@@ -82,7 +83,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             USER_COLUMN_USERNAME + " VARCHAR(255)," +
             USER_COLUMN_NAME + " VARCHAR(255)," +
             USER_COLUMN_PUBLIC + " BOOLEAN," +
-            USER_COLUMN_SLUG + " VARCHAR(255)" + ")";
+            USER_COLUMN_SLUG + " VARCHAR(255)," +
+            USER_COLUMN_LOGEDIN + " BOOLEAN" + ")";
 
 
     private HashMap hp;
@@ -109,13 +111,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String selecctQuery =
+        String selectQuery =
                 "SELECT " + USER_COLUMN_NAME + " FROM " + TABLE_USER +
                 " WHERE " + USER_COLUMN_NAME + " LIKE \"" + name + "\"";
 
-        Log.e(LOG, selecctQuery);
+        Log.e(LOG, selectQuery);
 
-        Cursor c = db.rawQuery(selecctQuery, null);
+        Cursor c = db.rawQuery(selectQuery, null);
 
 //        if(c != null) {
 //            c.moveToFirst();
@@ -124,21 +126,20 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         if( c.moveToFirst()) {
 //            Log.e(LOG, c.getString(c.getColumnIndex(USER_COLUMN_NAME)));
             closeDB();
-            //no user found
-            return false;
+            return true;
         } else {
             closeDB();
-            return true;
+            return false;
         }
     }
 
     public long createUser(String name, String password) {
-        User user = new User(name, "", password);
+        User user = new User(name, name+"@student.tugraz.at", password);
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(USER_COLUMN_NAME, user.getUsername());
-        values.put(USER_COLUMN_EMAIL, user.getEmail());
+        values.put(USER_COLUMN_EMAIL, user.getUsername() + "@student.tugraz.at");
         values.put(USER_COLUMN_ENC_PW, user.getEncrypted_password());
 
         //insert row
@@ -149,11 +150,67 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return user_id;
     }
 
+    public void logoutUser() {
+        User loggedUser = getLogedUser();
+        if(loggedUser != null) {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(USER_COLUMN_LOGEDIN, false);
+
+            //insert row
+            long user_id = db.update(TABLE_USER, values, USER_COLUMN_NAME + " LIKE ?",
+                    new String[]{String.valueOf(loggedUser.getUsername())});
+
+            closeDB();
+        }
+
+
+    }
+
+    public void loginUser(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(USER_COLUMN_LOGEDIN, "true");
+
+        //insert row
+        long user_id = db.update(TABLE_USER, values, USER_COLUMN_NAME + " LIKE ?",
+                new String[] {String.valueOf(name)});
+
+        closeDB();
+    }
     // closing database
     public void closeDB() {
         SQLiteDatabase db = this.getReadableDatabase();
         if (db != null && db.isOpen())
             db.close();
+    }
+
+    public User getLogedUser() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //TODO instead of name logedIn
+        String selectQuery =
+                "SELECT " + " * " + " FROM " + TABLE_USER +
+                        " WHERE " + USER_COLUMN_LOGEDIN + " = 1";
+
+        Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if( c.moveToFirst()) {
+
+            User logedUser = new User();
+            logedUser.setUsername(c.getString(c.getColumnIndex(USER_COLUMN_NAME)));
+            logedUser.setEmail(c.getString(c.getColumnIndex(USER_COLUMN_EMAIL)));
+//            Log.e("User", logedUser.getUsername());
+            return logedUser;
+        }
+
+        closeDB();
+        return null;
     }
 //    public boolean insertContact  (String name, String phone, String email, String street,String place)
 //    {

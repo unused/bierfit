@@ -28,6 +28,18 @@ public class AccountHandler {
 
     public boolean loginUser(String name, String password) {
         //TODO check password
-        return !dbHelper.existUser(name);
+        if(dbHelper.existUser(name)) {
+            dbHelper.loginUser(name);
+            return true;
+        } else
+            return false;
+    }
+
+    public void logoutUser() {
+        dbHelper.logoutUser();
+    }
+
+    public User getLogedUser() {
+        return dbHelper.getLogedUser();
     }
 }
