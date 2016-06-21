@@ -18,7 +18,7 @@ public class User {
     private Date last_sign_in_at;
     private String current_sign_in_ip;
     private String last_sign_in_ip;
-    private Date created_at;
+    private String created_at;
     private Date updated_at;
     private String confirmation_token;
     private Date confirmed_at;
@@ -118,11 +118,11 @@ public class User {
         this.last_sign_in_ip = last_sign_in_ip;
     }
 
-    public Date getCreated_at() {
+    public String getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
+    public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
 
@@ -197,7 +197,7 @@ public class User {
     public User(String email, String encrypted_password, String reset_password_token,
                 Date reset_password_sent_at, Date remember_created_at, int sign_in_count,
                 Date current_sign_in_at, Date last_sign_in_at, String current_sign_in_ip,
-                String last_sign_in_ip, Date created_at, Date updated_at, String confirmation_token,
+                String last_sign_in_ip, String created_at, Date updated_at, String confirmation_token,
                 Date confirmed_at, Date confirmation_sent_at, boolean isAdmin, String username,
                 boolean isPublic, String slug, Boolean isLogedIn) {
 

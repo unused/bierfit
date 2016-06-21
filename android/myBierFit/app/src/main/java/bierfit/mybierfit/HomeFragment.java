@@ -14,7 +14,17 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by kosha on 18/06/2016.
@@ -70,28 +80,16 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
 
 
-                TextView tvUsername = (TextView)getActivity().findViewById(R.id.login);
-                TextView tvPassword = (TextView)getActivity().findViewById(R.id.password);
+                TextView tvUsername = (TextView) getActivity().findViewById(R.id.login);
+                TextView tvPassword = (TextView) getActivity().findViewById(R.id.password);
                 boolean success = false;
 
-                if(tvPassword.getText() != null && tvUsername.getText() != null) {
+                if (tvPassword.getText() != null && tvUsername.getText() != null) {
                     //TODO add email
-                    success = ((MainActivity) getActivity()).accountHandler.registerUser(
-                            tvUsername.getText().toString(),
-                            tvPassword.getText().toString()
-                    );
-                }
 
-                if(success) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
-                    ((MainActivity) getActivity()).accountHandler.loginUser(
-                            tvUsername.getText().toString(), tvPassword.getText().toString());
+                    getJson(tvUsername.getText().toString(), "signup");
                 }
-                else
-                    Toast.makeText(getActivity().getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
-                Log.e("Register", "" + success);
-
-                            }
+            }
         });
 
         Button login = (Button) v.findViewById(R.id.button_login);
@@ -100,22 +98,65 @@ public class HomeFragment extends Fragment {
 //                Toast.makeText(getActivity().getApplicationContext(), "Login", Toast.LENGTH_SHORT).show();
                 //TODO check if successful
                 TextView tvUsername = (TextView)getActivity().findViewById(R.id.login);
-                TextView tvPassword = (TextView)getActivity().findViewById(R.id.password);
-
-                if(((MainActivity) getActivity()).accountHandler.loginUser(
-                        tvUsername.getText().toString(), tvPassword.getText().toString())) {
-
-                    ((MainActivity) getActivity()).setLogedIn(true);
-                    ((TextView)getActivity().findViewById(R.id.username)).setText(tvUsername.getText().toString());
-                    ((TextView)getActivity().findViewById(R.id.email)).setText(tvUsername.getText().toString() + "@student.tugraz.at");
-                    ((FrameLayout) getActivity().findViewById(R.id.frame_reg_layout)).setVisibility(View.GONE);
-                }
-
-                Toast.makeText(getActivity().getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                getJson(tvUsername.getText().toString(), "login");
             }
         });
 
 
         return v;
     }
+
+    public boolean getJson(String name, String fun) {
+
+        httpHandler mytask = new httpHandler(this);
+        if(fun.equals("login"))
+            mytask.logIn();
+        else
+            mytask.signUp();
+
+        return true;
+    }
+
+    public void signUser() {
+        TextView tvUsername = (TextView)getActivity().findViewById(R.id.login);
+        TextView tvPassword = (TextView)getActivity().findViewById(R.id.password);
+        boolean success = false;
+
+        if(tvPassword.getText() != null && tvUsername.getText() != null) {
+
+                success = ((MainActivity) getActivity()).accountHandler.registerUser(
+                        tvUsername.getText().toString(),
+                        tvPassword.getText().toString());
+
+        }
+
+        if(success) {
+            Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+            ((MainActivity) getActivity()).accountHandler.loginUser(
+                    tvUsername.getText().toString(), tvPassword.getText().toString());
+        }
+        else
+            Toast.makeText(getActivity().getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+        Log.e("Register", "" + success);
+
+    }
+
+
+    public void loginUser() {
+
+        TextView tvUsername = (TextView)getActivity().findViewById(R.id.login);
+        TextView tvPassword = (TextView)getActivity().findViewById(R.id.password);
+
+        if (((MainActivity) getActivity()).accountHandler.loginUser(
+                tvUsername.getText().toString(), tvPassword.getText().toString())) {
+
+
+            ((MainActivity) getActivity()).setLogedIn(true);
+            ((TextView) getActivity().findViewById(R.id.username)).setText(tvUsername.getText().toString());
+            ((TextView) getActivity().findViewById(R.id.email)).setText(tvUsername.getText().toString() + "@student.tugraz.at");
+            ((FrameLayout) getActivity().findViewById(R.id.frame_reg_layout)).setVisibility(View.GONE);
+        } else
+            Toast.makeText(getActivity().getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
+    }
+
 }

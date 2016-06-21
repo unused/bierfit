@@ -6,10 +6,6 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray">
 
         <FrameLayout
             android:id="@+id/frame_profile"
@@ -63,14 +59,12 @@
                         android:orientation="vertical">
 
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:scaleType="centerCrop"
-                            android:src="@mipmap/ic_launcher"
-                            android:alpha="127"
-                            android:layout_gravity="center"
-                            android:layout_margin="20dp"/>
+                        <WebView
+                            android:id="@+id/webview_percentage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </WebView>
 
                         <Button
                             android:id="@+id/button_bierfit"
@@ -90,6 +84,6 @@
 
 
         </FrameLayout>
-    </ScrollView>
+
 
 </RelativeLayout>
