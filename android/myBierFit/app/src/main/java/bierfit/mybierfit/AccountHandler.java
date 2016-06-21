@@ -29,8 +29,7 @@ public class AccountHandler {
     public boolean loginUser(String name, String password) {
         //TODO check password
         if(dbHelper.existUser(name)) {
-            dbHelper.loginUser(name);
-            return true;
+            return dbHelper.loginUser(name, password);
         } else
             return false;
     }

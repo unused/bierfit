@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        this.deleteDatabase(R.string.app_name + ".db");
+
         accountHandler = new AccountHandler(this);
 
         logedIn = false;

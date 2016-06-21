@@ -111,7 +111,7 @@ public class HomeFragment extends Fragment {
                     ((FrameLayout) getActivity().findViewById(R.id.frame_reg_layout)).setVisibility(View.GONE);
                 }
 
-
+                Toast.makeText(getActivity().getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
             }
         });
 

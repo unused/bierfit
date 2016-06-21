@@ -112,8 +112,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
 
         String selectQuery =
-                "SELECT " + USER_COLUMN_NAME + " FROM " + TABLE_USER +
-                " WHERE " + USER_COLUMN_NAME + " LIKE \"" + name + "\"";
+                "SELECT " + "*" + " FROM " + TABLE_USER +
+                " WHERE " + USER_COLUMN_NAME + " = \"" + name + "\"";
 
         Log.e(LOG, selectQuery);
 
@@ -124,11 +124,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 //        } else
 //            return true;
         if( c.moveToFirst()) {
-//            Log.e(LOG, c.getString(c.getColumnIndex(USER_COLUMN_NAME)));
+            Log.e(LOG, c.getString(0));
             closeDB();
+            Log.e("exist User", "true");
             return true;
         } else {
             closeDB();
+            Log.e("exist User", "false");
             return false;
         }
     }
@@ -168,17 +170,46 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     }
 
-    public void loginUser(String name) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean loginUser(String name, String password) {
 
-        ContentValues values = new ContentValues();
-        values.put(USER_COLUMN_LOGEDIN, "true");
 
-        //insert row
-        long user_id = db.update(TABLE_USER, values, USER_COLUMN_NAME + " LIKE ?",
-                new String[] {String.valueOf(name)});
+        SQLiteDatabase db = this.getReadableDatabase();
 
-        closeDB();
+        String selectQuery =
+                "SELECT " + "*" + " FROM " + TABLE_USER +
+                        " WHERE " + USER_COLUMN_NAME + " = \"" + name +"\"";
+
+        Log.e("login: ", name +" with pw: " + password);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if( c.moveToFirst()) {
+
+            User logedUser = new User();
+            logedUser.setUsername(c.getString(c.getColumnIndex(USER_COLUMN_NAME)));
+            logedUser.setEmail(c.getString(c.getColumnIndex(USER_COLUMN_EMAIL)));
+            logedUser.setEncrypted_password(c.getString(c.getColumnIndex(USER_COLUMN_ENC_PW)));
+
+//            Log.e("loged User: ", logedUser.toString());
+//            Log.e("login data: ", name + ", " + password);
+
+            if (logedUser.getUsername().equals(name) && logedUser.getEncrypted_password().equals(password)) {
+                db = this.getWritableDatabase();
+
+//                Log.e("loged User: ", logedUser.toString());
+                ContentValues values = new ContentValues();
+                values.put(USER_COLUMN_LOGEDIN, "true");
+
+                //insert row
+                long user_id = db.update(TABLE_USER, values, USER_COLUMN_NAME + " LIKE ?",
+                        new String[]{String.valueOf(name)});
+
+                closeDB();
+
+                return true;
+            }
+        }
+        return false;
     }
     // closing database
     public void closeDB() {

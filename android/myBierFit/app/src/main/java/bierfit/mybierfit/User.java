@@ -234,4 +234,12 @@ public class User {
         encrypted_password = password_;
 
     }
+
+    @Override
+    public String toString() {
+        return "Username: " + this.username + "\n" +
+                "Passwort: " + this.encrypted_password + "\n" +
+                "email: " + this.email +"\n" +
+                "isLogedIn: " + this.isLogedIn;
+    }
 }
