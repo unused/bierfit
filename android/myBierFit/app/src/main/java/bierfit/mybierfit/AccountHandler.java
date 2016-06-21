@@ -41,4 +41,8 @@ public class AccountHandler {
     public User getLogedUser() {
         return dbHelper.getLogedUser();
     }
+
+    public void updateUser(String original, String name, String password, String email) {
+        dbHelper.updateUser(original, name, password,email);
+    }
 }

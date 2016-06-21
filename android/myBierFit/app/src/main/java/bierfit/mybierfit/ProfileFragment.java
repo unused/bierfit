@@ -29,24 +29,18 @@ public class ProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.profile_fragment,container,false);
 
         TextView description = (TextView) v.findViewById(R.id.user_description);
-        description.setText(Html.fromHtml("<body>" +
-                "<h1>TODO username</h1>\n" +
-                "\n" +
-                "  <div class=\"jumbotron row\">\n" +
-                "\n" +
-                "  <div class=\"col-md-6 text-justify\">\n" +
-                "    <p>\n" +
-                "      At bierfit since about TODO hour(s)\n" +
-                "    </p>\n" +
-                "  </div>\n" +
-                "</div>\n" +
-                "</body>"));
+        User user = ((MainActivity)getActivity()).getLoggedUser();
+        if(user != null) {
+            description.setText(Html.fromHtml("<body>" +
+                    "<h1>" + user.getUsername() + "</h1>\n" +
+                    "<h2>" + user.getEmail() + "</h2>\n"));
+        }
 
         ///assets/application-0135db13e85cd5eaa3f3915be2dacfd9c89cac5f0f4b9bf6ca4d70818b2b2f67.js
 
         WebView myWebView = (WebView)v.findViewById(R.id.webview_percentage);
         myWebView.getSettings().setJavaScriptEnabled(true);
-        myWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+        //myWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
         myWebView.setWebViewClient(new WebViewClient() {
             @Override
@@ -91,25 +85,6 @@ public class ProfileFragment extends Fragment {
 
         myWebView.loadUrl("https://bierfit.herokuapp.com/users/admin");
 
-
-//        profile.addJavascriptInterface(new WebAppInterface(this), "Android");
-
-//        profile.setWebChromeClient(new WebChromeClient() {
-//            public void onProgressChanged(WebView view, int progress) {
-//                // Activities and WebViews measure progress with different scales.
-//                // The progress meter will automatically disappear when we reach 100%
-//                getActivity().setProgress(progress * 1000);
-//            }
-//        });
-//        profile.setWebViewClient(new WebViewClient() {
-//            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-//                Toast.makeText(getActivity(), "Oh no! " + description, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-//        profile.loadUrl("https://bierfit.herokuapp.com/assets/application-0135db13e85cd5eaa3f3915be2dacfd9c89cac5f0f4b9bf6ca4d70818b2b2f67.js");
-
-        //myWebView.loadUrl("javascript:https://bierfit.herokuapp.com/assets/application-0135db13e85cd5eaa3f3915be2dacfd9c89cac5f0f4b9bf6ca4d70818b2b2f67.js");
         Button bierfit = (Button) v.findViewById(R.id.button_bierfit);
         bierfit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -129,8 +104,6 @@ public class ProfileFragment extends Fragment {
 
         return v;
     }
-
-
 
     private void injectScriptFile(WebView view, String scriptFile) {
         InputStream input;

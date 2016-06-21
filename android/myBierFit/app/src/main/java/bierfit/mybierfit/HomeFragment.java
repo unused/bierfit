@@ -152,8 +152,9 @@ public class HomeFragment extends Fragment {
 
 
             ((MainActivity) getActivity()).setLogedIn(true);
+            ((MainActivity) getActivity()).setLoggedUser(new User(tvUsername.getText().toString(), tvUsername.getText().toString(), tvPassword.getText().toString()));
             ((TextView) getActivity().findViewById(R.id.username)).setText(tvUsername.getText().toString());
-            ((TextView) getActivity().findViewById(R.id.email)).setText(tvUsername.getText().toString() + "@student.tugraz.at");
+            ((TextView) getActivity().findViewById(R.id.email)).setText(tvUsername.getText().toString());
             ((FrameLayout) getActivity().findViewById(R.id.frame_reg_layout)).setVisibility(View.GONE);
         } else
             Toast.makeText(getActivity().getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();

@@ -17,4 +17,5 @@
     <string name="button_settings">update</string>
     <string name="bierfitinfo">Bierfit User Position</string>
     <string name="search">search</string>
+    <string name="email">email</string>
 </resources>

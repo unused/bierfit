@@ -44,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean logedIn;
 
+    public User getLoggedUser() {
+        return loggedUser;
+    }
+
+    public void setLoggedUser(User loggedUser) {
+        this.loggedUser = loggedUser;
+    }
+
+    private User loggedUser;
 
     public AccountHandler accountHandler;
 
@@ -54,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        this.deleteDatabase(R.string.app_name + ".db");
 
+        loggedUser = null;
         accountHandler = new AccountHandler(this);
 
         logedIn = false;
@@ -99,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
 //                    Toast.makeText(getApplicationContext(), "logged in", Toast.LENGTH_SHORT).show();
 
-                    User logedUser = accountHandler.getLogedUser();
+                    User logedUser = getLoggedUser();
                     if(logedUser != null) {
                         ((TextView) drawerView.findViewById(R.id.username)).setText(logedUser.getUsername());
                         ((TextView) drawerView.findViewById(R.id.email)).setText(logedUser.getEmail());
@@ -159,10 +169,12 @@ public class MainActivity extends AppCompatActivity {
                 mDrawer.openDrawer(GravityCompat.START);
                 return true;
             case R.id.action_settings:
-                switchFragment(SettingsFragment.class);
+                if(getLoggedUser() != null)
+                    switchFragment(SettingsFragment.class);
                 return true;
             case R.id.action_user:
-                switchFragment(ProfileFragment.class);
+                if(getLoggedUser() != null)
+                    switchFragment(ProfileFragment.class);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -203,16 +215,25 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = HomeFragment.class;
                 break;
             case R.id.nav_profile:
-                //Toast.makeText(getApplicationContext(), "Profile selected", Toast.LENGTH_SHORT).show();
-                fragmentClass = ProfileFragment.class;
+                if(getLoggedUser() != null)
+                    fragmentClass = ProfileFragment.class;
+                else
+                    newFragment = false;
                 break;
             case R.id.nav_dashboard:
-                //Toast.makeText(getApplicationContext(), "Dashboard selected", Toast.LENGTH_SHORT).show();
-                fragmentClass = ContentFragment.class;
+                //TODO gibt noch keinen online graphen -> deswegen profile
+                // = ContentFragment.class;
+                if(getLoggedUser() != null)
+                    fragmentClass = ProfileFragment.class;
+                else
+                    newFragment = false;
                 break;
             case R.id.nav_settings:
                 //Toast.makeText(getApplicationContext(), "Settings selected", Toast.LENGTH_SHORT).show();
-                fragmentClass = SettingsFragment.class;
+                if(getLoggedUser() != null)
+                    fragmentClass = SettingsFragment.class;
+                else
+                    newFragment = false;
                 break;
             case R.id.nav_github:
 
@@ -226,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
                 setLogedIn(false);
                 //Toast.makeText(getApplicationContext(), "logged out", Toast.LENGTH_SHORT).show();
                 accountHandler.logoutUser();
+                setLoggedUser(null);
                 fragmentClass = HomeFragment.class;
                 break;
             default:
@@ -236,6 +258,8 @@ public class MainActivity extends AppCompatActivity {
         if(newFragment) {
             switchFragment(fragmentClass);
         }
+        else
+            Toast.makeText(getApplicationContext(), "maybe not loged in?", Toast.LENGTH_SHORT).show();
 
     }
     private void switchFragment(Class newFragment) {
