@@ -11,16 +11,15 @@ class ConsumeEventsController < ApplicationController
 
   # POST /consume_events.json
   def create
-    render status: 404 unless request.format.json?
-    @consume_event = ConsumeEvent.new consume_event_params.merge(
-      consumed_at: Time.at(Integer(consume_event_params[:consumed_at])).to_datetime
-    )
+    @consume_event = ConsumeEvent.new consume_event_params
 
     respond_to do |format|
       if @consume_event.save
         format.json { render json: { message: 'yo' }, status: :created }
       else
-        format.json { render json: @consume_event.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @consume_event.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -31,12 +30,17 @@ class ConsumeEventsController < ApplicationController
   end
 
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def consume_event_params
-      params.require(:consume_event).permit(:user, :analog_reading,
-                                            :voltage_reading_in_mv,
-                                            :fsr_resistance_in_ohms,
-                                            :conductance_in_micromhos,
-                                            :force_in_newtons, :consumed_at)
-    end
+
+  # Never trust parameters from the scary internet, only allow the white list
+  # through.
+  def consume_event_params
+    params.require(:consume_event).permit(:user, :analog_reading,
+                                          :voltage_reading_in_mv,
+                                          :fsr_resistance_in_ohms,
+                                          :conductance_in_micromhos,
+                                          :force_in_newtons,
+                                          :consumed_at,
+                                          :user_id
+                                         )
+  end
 end

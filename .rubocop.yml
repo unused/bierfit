@@ -1,0 +1,26 @@
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'dev/**/*'
+    - 'log/**/*'
+    - 'spec/factories/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+  TargetRubyVersion: 2.2
+
+Style/Encoding:
+  EnforcedStyle: when_needed
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Severity: warning

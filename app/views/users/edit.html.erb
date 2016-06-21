@@ -1,0 +1,48 @@
+
+<div class="row">
+  <div class="col-sm-12 col-md-6 text-center">
+    <%= image_tag gravatar_url(@user.email), alt: @user.username %>
+    <div class="well well-sm margin text-justify">
+      If you want to show the world a picture of you here, use the service at
+      <%= link_to 'https://en.gravatar.com/' %> that offers a global
+      recognizeable avatar that is connected to your e-mail. As soon as you
+      register a picture there, this box will be display it magically... woah!
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6">
+    <%= form_for @user, html: { class: "form-horizontal" } do |f| %>
+      <div class="form-group">
+        <%= f.label :username, class: "col-sm-2 control-label" %>
+        <div class="col-sm-10">
+          <%= f.text_field :username, class: "form-control", disabled: :disabled %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :email, class: "col-sm-2 control-label" %>
+        <div class="col-sm-10">
+          <%= f.text_field :email, class: "form-control", disabled: :disabled %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :name, class: "col-sm-2 control-label" %>
+        <div class="col-sm-10">
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <div class="checkbox">
+            <%= f.label :public do %>
+              <%= f.check_box :public %> user profile is public visible?
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <%= f.submit "update" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
