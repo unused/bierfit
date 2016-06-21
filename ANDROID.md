@@ -7,7 +7,8 @@ You may activate "install 3rd party"!
 
 #Usage:
 
-You can sign up User and login, but just on the android device. On the homepage
-is another account management. Every android account is linked to the admin on
-the homepage, because on admin we have all "bierdeckel" data.
+You can create new accounts and login to them, but only on the android device. The homepage
+uses another account management. Because the user accounts haven't any functionality and data,
+all of them are linked to a default account (admin). At the moment the user is
+unable to create/collect data.
 
