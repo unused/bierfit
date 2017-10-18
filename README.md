@@ -1,17 +1,24 @@
+# README
 
-# Bierfit
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-A fitnees tracker for drinking beer that automatically tracks speed, amount and present some awesome statistics.
+Things you may want to cover:
 
-[![Build Status](https://travis-ci.org/unused/bierfit.svg?branch=master)](https://travis-ci.org/unused/bierfit)
+* Ruby version
 
-## Development
+* System dependencies
 
-### Github Page
+* Configuration
 
-The [github-page](http://unused.github.io/bierfit) is located in [gh-pages directory](/gh-pages/).
+* Database creation
 
-```sh
-$ git subtree push --prefix gh-pages origin gh-pages # update github.io page
-```
+* Database initialization
 
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
