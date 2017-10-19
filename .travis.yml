@@ -1,0 +1,5 @@
+language: ruby
+bundler_args: --without production --no-rdoc --no-ri
+script:
+  - bundle exec rubocop -D
+  - bundle exec rspec
