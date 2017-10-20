@@ -7,8 +7,6 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use Redis adapter to run Action Cable in production
@@ -20,11 +18,14 @@ gem 'puma', '~> 3.7'
 # cross-origin AJAX possible
 # gem 'rack-cors'
 
+# Use postgres as the database for Active Record
+gem 'pg', '~> 0.21.0'
+
 # Devise user management done right
-gem 'devise'
+gem 'devise', '~> 4.3.0'
 
 # Sqreen security monitoring
-gem 'sqreen'
+gem 'sqreen', '~> 1.8.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger
@@ -48,3 +49,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+ruby '2.4.1'

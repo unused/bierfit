@@ -19,3 +19,4 @@
 
 .byebug_history
 config/sqreen.yml
+.env

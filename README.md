@@ -1,24 +1,23 @@
-# README
+# Bierfit
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A fitnees tracker for drinking beer that automatically tracks speed, amount and present some awesome statistics.
 
-Things you may want to cover:
+[![Build Status](https://travis-ci.org/unused/bierfit.svg?branch=master)](https://travis-ci.org/unused/bierfit)
 
-* Ruby version
+<a title="Realtime application protection" href="https://www.sqreen.io/?utm_source=badge"><img style="width:109px;height:36px" src="https://s3-eu-west-1.amazonaws.com/sqreen-assets/badges/20161213/sqreen-badgeDark@2x.png" alt="Sqreen | Runtime Application Protection" /></a>
 
-* System dependencies
+## Development
 
-* Configuration
+### Github Page
 
-* Database creation
+The [github-page](http://unused.github.io/bierfit) is located in [gh-pages directory](/gh-pages/).
 
-* Database initialization
+```sh
+$ git subtree push --prefix gh-pages origin gh-pages # update github.io page
+```
 
-* How to run the test suite
+### Use a docker postgres database server
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+$ docker run --name bierfit-postgres -d postgres
+```
